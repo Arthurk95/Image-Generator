@@ -8,30 +8,29 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 
-public class MyConsoleField extends JTextPane {
-    public static final Color TEXT_COLOR = new Color(180,180,180);
-    private final Color BG_COLOR = new Color(45,45,45);
-    private final Font font = new Font("Courier New", Font.PLAIN, 12);
+public class MyConsoleField{
+    private static final Color TEXT_COLOR = new Color(180,180,180);
     private final Color FILENAME_COLOR = new Color(70,160,160);
+    private final Color DIRECTORY_COLOR = new Color(200,200,120);
+    private JTextPane pane;
 
     public MyConsoleField(){
-        super();
-        this.setFont(font);
-        this.setBackground(BG_COLOR);
+        pane = new JTextPane();
+    }
+
+    public JTextPane getPane(){
+        return pane;
     }
 
     public void appendCreateFile(String dir, String file){
         appendToPane("Created file ", TEXT_COLOR);
         appendToPane(file, FILENAME_COLOR);
-        appendToPane(" at" + dir + "\n", TEXT_COLOR);
-    }
-
-    public void appendFileName(String file){
-        appendToPane(file, FILENAME_COLOR);
+        appendToPane(" at ", TEXT_COLOR);
+        appendToPane(dir + "\n", DIRECTORY_COLOR);
     }
 
     public void appendDirectory(String dir){
-        appendToPane(dir, TEXT_COLOR);
+        appendToPane(dir, DIRECTORY_COLOR);
     }
 
     public void appendDirWriteSuccess(String dir){
@@ -54,10 +53,10 @@ public class MyConsoleField extends JTextPane {
         aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
         aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 
-        int len = this.getDocument().getLength();
-        this.setCaretPosition(len);
-        this.setCharacterAttributes(aset, false);
-        this.replaceSelection(msg);
+        int len = pane.getDocument().getLength();
+        pane.setCaretPosition(len);
+        pane.setCharacterAttributes(aset, false);
+        pane.replaceSelection(msg);
     }
 
 }
