@@ -12,6 +12,7 @@ public class Main {
         MainUI main = new MainUI();
         JFrame frame = new JFrame("Image Generator");
         frame.setContentPane(main.mainPanel);
+        frame.setMinimumSize(main.mainPanel.getMinimumSize());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
