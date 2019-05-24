@@ -2,13 +2,18 @@ package com.imagegenerator.gui;
 
 
 import javax.swing.*;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
+import javax.swing.text.*;
 import java.awt.*;
 
-public class MyConsoleField{
+/**
+ * Generates a StyledDocument using a JTextPane.
+ * Provides methods to append passed input to the styled
+ * document, allowing for organized output to be displayed
+ * on the MainUI.
+ *
+ * @author  Arthur Kharit
+ */
+class MyConsoleField{
     private static final Color TEXT_COLOR = new Color(180,180,180);
     private final Color FILENAME_COLOR = new Color(70,160,160);
     private final Color DIRECTORY_COLOR = new Color(200,200,120);
@@ -18,33 +23,65 @@ public class MyConsoleField{
         pane = new JTextPane();
     }
 
-    public JTextPane getPane(){
-        return pane;
+    public StyledDocument getStyledDoc(){
+        return pane.getStyledDocument();
     }
 
+    /**
+     * Appends the following message format:
+     *      Created file *file* at *dir*
+     *
+     * @param dir   the directory that has been written to
+     * @param file  the name of the saved file
+     */
     public void appendCreateFile(String dir, String file){
         appendToPane("Created file ", TEXT_COLOR);
         appendToPane(file, FILENAME_COLOR);
         appendToPane(" at ", TEXT_COLOR);
-        appendToPane(dir + "\n", DIRECTORY_COLOR);
+        appendDirectory(dir + "\n");
     }
 
-    public void appendDirectory(String dir){
+    /**
+     * Appends the directory to the output
+     *
+     * @param dir   directory that has been written to
+     */
+    private void appendDirectory(String dir){
         appendToPane(dir, DIRECTORY_COLOR);
     }
 
+    /**
+     * Outputs the following in Color.GREEN:
+     *      Directory *dir* successfully created
+     *
+     * @param dir   directory that has been written to
+     */
     public void appendDirWriteSuccess(String dir){
         appendToPane("Directory ", Color.GREEN);
         appendDirectory(dir);
         appendToPane(" successfully created\n", Color.GREEN);
     }
 
+    /**
+     * Outputs the following in Color.RED:
+     *      Directory *dir* failed to create. It either already exists or invalid name
+     *
+     * @param dir   directory that has been written to
+     */
     public void appendDirWriteFail(String dir){
         appendToPane("Directory ", Color.RED);
         appendDirectory(dir);
         appendToPane(" failed to create. It either already exists or invalid name\n", Color.RED);
     }
 
+    /**
+     * Appends the message to the JTextPane with the passed color
+     *
+     * Solution found at <a href="https://stackoverflow.com/a/9652143">StackOverFlow</a>
+     *
+     * @param msg   String to append
+     * @param c     color of msg
+     */
     private void appendToPane(String msg, Color c)
     {
         StyleContext sc = StyleContext.getDefaultStyleContext();

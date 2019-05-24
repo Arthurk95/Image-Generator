@@ -7,6 +7,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This class generates and stores a BufferedImage file.
+ * Contains methods to write the image file to a given
+ * directory or path.
+ *
+ * @author  Arthur Kharit
+ * */
 public class ImageGenerator {
     private int imageWidth; // columns in array | x-axis
     private int imageHeight; // rows in array | y-axis
@@ -32,8 +39,14 @@ public class ImageGenerator {
         textFont = new Font(font, Font.PLAIN, size);
     }
 
+    /**
+     * Generates and writes an image file to disk at directory dir
+     *
+     * @param dir   the directory or name (if no directory specified) of the file
+     * @param ext   the extension of the file
+     * @return      the generated file
+     */
     public File writeFile(String dir, String ext){
-
         String ext2 = ext.substring(1,4);
         File file = new File(dir+ext);
         try {
@@ -48,31 +61,51 @@ public class ImageGenerator {
         return bf;
     }
 
+    /**
+     * Generates an image by splitting it into three sections:
+     *      - The top (of the image) gradient
+     *      - The main color (middle)
+     *      - The bottom (of the image) gradient
+     *
+     */
     public void generateImage(){
         bf = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graph2D = bf.createGraphics();
 
-        /* Top portion of image gradient */
+        /* Top portion of image gradient
+        * (0,0) to (0,gradientTop) */
         GradientPaint topGradient = new GradientPaint(
                 0, 0, gradientColor, 0, (int)gradientTop, mainColor);
         graph2D.setPaint(topGradient);
         graph2D.fill(new Rectangle2D.Double(0, 0, imageWidth, (int)gradientTop));
 
-        /* Middle of image */
+        /* Middle of image
+        * (0,gradientTop) to (imageWidth,gradientBot)*/
         graph2D.setPaint(mainColor);
         graph2D.fill(new Rectangle2D.Double(0, (int)gradientTop, imageWidth, (int)gradientBot));
 
-        /* Bottom portion of image gradient */
+        /* Bottom portion of image gradient
+        * (0,gradientBot) to (0,imageHeight) */
         GradientPaint bottomGradient = new GradientPaint(
                 0, (int)gradientBot, mainColor, 0, imageHeight, gradientColor);
         graph2D.setPaint(bottomGradient);
         graph2D.fill(new Rectangle2D.Double(0, (int)gradientBot, imageWidth, imageHeight));
+
+        // generate text if text valid
         if(text != null && (text.length() > 0)) {
             centerString(graph2D);
         }
     }
 
-    public void centerString(Graphics2D g) {
+    /**
+     * Determines the width and height of the text string based on its
+     * font and then draws it centered onto the Graphics2D object.
+     *
+     * Solution found at <a href="https://stackoverflow.com/a/27740330">StackOverFlow</a>
+     *
+     * @param g a 2D graphics object that contains an image
+     */
+    private void centerString(Graphics2D g) {
         FontMetrics metrics = g.getFontMetrics(textFont);
         // Determine the X coordinate for the text
         int x = (imageWidth - metrics.stringWidth(text))/2;
