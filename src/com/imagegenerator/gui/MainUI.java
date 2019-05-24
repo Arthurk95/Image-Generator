@@ -12,6 +12,7 @@ import java.io.File;
 public class MainUI{
 
     private final int MAX_DIMENSION_SIZE = 2000;
+    private final int MAX_ITERATIONS = 100;
     public JPanel mainPanel;
     private MyTextField imageWidthTF;
     private MyTextField imageHeightTF;
@@ -194,6 +195,8 @@ public class MainUI{
         text = iterationsTF.getText();
         try{
             iterations = Integer.parseInt(text);
+            if(iterations > 100)
+                iterations = MAX_ITERATIONS;
             iterationsTF.normalBorder();
         } catch(Exception e){
             iterationsTF.redBorder();
