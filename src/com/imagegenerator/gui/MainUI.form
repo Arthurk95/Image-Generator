@@ -294,7 +294,7 @@
               <background color="-394759"/>
               <foreground color="-14474461"/>
               <horizontalAlignment value="2"/>
-              <text value="/GeneratedImages"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="f5562" class="javax.swing.JTextField">
@@ -349,8 +349,8 @@
             </constraints>
             <properties>
               <model>
-                <item value="png"/>
-                <item value="jpg"/>
+                <item value=".png"/>
+                <item value=".jpg"/>
               </model>
             </properties>
           </component>
@@ -390,7 +390,7 @@
             </constraints>
             <properties>
               <foreground color="-2829100"/>
-              <text value="Directory"/>
+              <text value="Directory (default is program's directory)"/>
             </properties>
           </component>
         </children>
@@ -530,7 +530,7 @@
                   <background color="-14671840"/>
                   <foreground color="-13487566"/>
                   <horizontalAlignment value="0"/>
-                  <text value="0"/>
+                  <text value="1"/>
                 </properties>
               </component>
               <component id="6476c" class="javax.swing.JCheckBox" binding="iterativeCheckBox">
