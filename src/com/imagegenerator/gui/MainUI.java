@@ -71,38 +71,28 @@ public class MainUI{
             @Override
             public void actionPerformed(ActionEvent event){
                 getValues();
-                File f;
                 // creates a new directory
                 if(directory.equals("")){}
                 else createDirectory();
 
                 /* draw and write multiple images */
                 if(textCheckBox.isSelected() && iterativeCheckBox.isSelected()){
-                    int iterations = Integer.parseInt(iterationsTF.getText());
-                    String temp = textContent;
+                    String tempText = textContent;
+                    String tempFileName = fileName;
                     for(int i = 1; i <= iterations; i++){
                         textContent = textContent + " " + i;
-                        initGenerator();
-                        f = ig.writeFile(directory+fileName+i, extension);
-                        textContent = temp;
-                        consoleField.appendCreateFile(f.getAbsolutePath().replace(
-                                fileName+i+extension, ""),fileName+i+extension);
-                        consolePane.setStyledDocument(consoleField.getPane().getStyledDocument());
+                        fileName = fileName + i;
+                        createImageFile();
+                        textContent = tempText;
+                        fileName = tempFileName;
                     }
                 }
                 else {
-                    initGenerator();
-                    f = ig.writeFile(directory+fileName, extension);
-                    if(directory.equals(""))
-                        directory = f.getAbsolutePath().replace(fileName+extension,"");
-                    consoleField.appendCreateFile(f.getAbsolutePath().replace(
-                            fileName+extension, ""),fileName+extension);
-                    consolePane.setStyledDocument(consoleField.getPane().getStyledDocument());
-
+                    generateImage();
+                    createImageFile();
                 }
             }
         });
-
         generatePreviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,8 +102,19 @@ public class MainUI{
         });
     }
 
-    /* Initializes the generator by passing it all of the values */
-    private void initGenerator(){
+    /* Calls the necessary methods in ImageGenerator to create and write an image */
+    private void createImageFile(){
+        File f;
+        generateImage();
+        f = ig.writeFile(directory+fileName, extension);
+        consoleField.appendCreateFile(f.getAbsolutePath().replace(
+                fileName+extension, ""),fileName+extension);
+        consolePane.setStyledDocument(consoleField.getStyledDoc());
+    }
+
+    /* Initializes the generator by passing it all of the values.
+     * Generates the image */
+    private void generateImage(){
         ig = new ImageGenerator(width, height, topGradient, bottomGradient);
         ig.setColors(getColor(mainColorTF), getColor(gradientColorTF));
         if(textCheckBox.isSelected()){
@@ -122,11 +123,13 @@ public class MainUI{
         ig.generateImage();
     }
 
+    /* Draws the image in the previewPanel container.
+     * The image is scaled to fit within the container. */
     public void drawPreview(){
         getValues();
         if(iterativeCheckBox.isSelected())
             textContent = textContent + " 1";
-        initGenerator();
+        generateImage();
         int centerWidthPreview = imagePreviewPanel.getWidth()/2;
         int centerHeightPreview = imagePreviewPanel.getHeight()/2;
         fitToPreview();
@@ -200,6 +203,8 @@ public class MainUI{
         textContent = textContentTF.getText();
     }
 
+    /* Converts the directory and fileName JTextFields to Strings.
+     * Makes sure the directory ends with a backslash */
     private void getDirectoryValues() {
         fileName = fileNameTF.getText();
         extension = (String) extensionDropDown.getSelectedItem();
@@ -268,6 +273,9 @@ public class MainUI{
         } catch(Exception e){}
     }
 
+    /* Enables/disables the entire textPanel based on the textCheckBox state.
+     * Changes the color of the background as well, and makes sure the
+     * iterativeTextField maintains its state.*/
     private void flickTextEnable(){
         enableComponents(textPanel,textCheckBox.isSelected());
         if(textCheckBox.isSelected()){
@@ -283,6 +291,12 @@ public class MainUI{
         }
     }
 
+    /**
+     * Enables/disables all components within a container.
+     *
+     * @param container     container whose components to enable/disable
+     * @param enable        state to switch to
+     */
     private void enableComponents(Container container, boolean enable) {
         Component[] components = container.getComponents();
         for (Component component : components) {
@@ -293,6 +307,8 @@ public class MainUI{
         }
     }
 
+    /* Attempts to create a directory.
+     * Outputs success or failure */
     private void createDirectory(){
         File dir = new File(directory);
         boolean directoryCreated = dir.mkdir();

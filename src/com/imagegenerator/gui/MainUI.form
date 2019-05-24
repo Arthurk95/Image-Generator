@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.imagegenerator.gui.MainUI">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="31" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="35" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="1687" height="1376"/>
@@ -16,7 +16,7 @@
     <children>
       <vspacer id="6f2ea">
         <constraints>
-          <grid row="1" column="4" row-span="26" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="1" column="4" row-span="30" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="10" height="-1"/>
             <preferred-size width="23" height="-1"/>
           </grid>
@@ -24,7 +24,7 @@
       </vspacer>
       <vspacer id="18ee6">
         <constraints>
-          <grid row="1" column="0" row-span="29" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="1" column="0" row-span="33" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="10" height="-1"/>
             <preferred-size width="20" height="-1"/>
           </grid>
@@ -65,8 +65,8 @@
             <constraints>
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="130" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="130" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -89,7 +89,7 @@
             <constraints>
               <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="130" height="31"/>
+                <preferred-size width="130" height="25"/>
                 <maximum-size width="-1" height="30"/>
               </grid>
             </constraints>
@@ -196,7 +196,7 @@
       </hspacer>
       <vspacer id="c1b78">
         <constraints>
-          <grid row="0" column="6" row-span="31" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+          <grid row="0" column="6" row-span="35" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
             <minimum-size width="10" height="-1"/>
             <preferred-size width="20" height="-1"/>
           </grid>
@@ -204,140 +204,15 @@
       </vspacer>
       <component id="68c50" class="javax.swing.JButton" binding="generatePreviewButton" default-binding="true">
         <constraints>
-          <grid row="20" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="24" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Generate Preview"/>
         </properties>
       </component>
-      <grid id="10577" layout-manager="GridLayoutManager" row-count="6" column-count="50" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <grid row="21" column="5" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-12762040"/>
-        </properties>
-        <border type="etched">
-          <color color="-11840423"/>
-        </border>
-        <children>
-          <component id="784d4" class="javax.swing.JTextField" binding="directoryTF">
-            <constraints>
-              <grid row="4" column="1" row-span="1" col-span="47" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="300" height="25"/>
-                <maximum-size width="-1" height="25"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-394759"/>
-              <foreground color="-14474461"/>
-              <horizontalAlignment value="2"/>
-              <text value=""/>
-            </properties>
-          </component>
-          <component id="f5562" class="javax.swing.JTextField" binding="fileNameTF">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="25" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <minimum-size width="100" height="-1"/>
-                <preferred-size width="100" height="25"/>
-                <maximum-size width="-1" height="30"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-394759"/>
-              <foreground color="-14474461"/>
-              <horizontalAlignment value="2"/>
-              <text value="generatedimage"/>
-            </properties>
-          </component>
-          <component id="29197" class="javax.swing.JButton" binding="generateImageFileButton">
-            <constraints>
-              <grid row="4" column="48" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="138" height="25"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text value="Generate Image File"/>
-            </properties>
-          </component>
-          <component id="42982" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="46" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="146" height="16"/>
-              </grid>
-            </constraints>
-            <properties>
-              <foreground color="-2829100"/>
-              <text value="Filename"/>
-            </properties>
-          </component>
-          <component id="7eefd" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="1" column="47" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="146" height="16"/>
-              </grid>
-            </constraints>
-            <properties>
-              <foreground color="-2829100"/>
-              <text value="Image extension"/>
-            </properties>
-          </component>
-          <component id="b3660" class="javax.swing.JComboBox" binding="extensionDropDown">
-            <constraints>
-              <grid row="2" column="47" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <model>
-                <item value=".png"/>
-                <item value=".jpg"/>
-              </model>
-            </properties>
-          </component>
-          <vspacer id="42494">
-            <constraints>
-              <grid row="1" column="0" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                <preferred-size width="10" height="-1"/>
-              </grid>
-            </constraints>
-          </vspacer>
-          <vspacer id="e000b">
-            <constraints>
-              <grid row="1" column="49" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                <preferred-size width="10" height="-1"/>
-              </grid>
-            </constraints>
-          </vspacer>
-          <hspacer id="4bcc3">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="48" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="-1" height="10"/>
-              </grid>
-            </constraints>
-          </hspacer>
-          <hspacer id="432ab">
-            <constraints>
-              <grid row="5" column="1" row-span="1" col-span="49" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="-1" height="10"/>
-              </grid>
-            </constraints>
-          </hspacer>
-          <component id="6300c" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="46" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="146" height="16"/>
-              </grid>
-            </constraints>
-            <properties>
-              <foreground color="-2829100"/>
-              <text value="Directory (default is program's directory)"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
       <scrollpane id="4cee">
         <constraints>
-          <grid row="29" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="33" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="100"/>
             <maximum-size width="-1" height="100"/>
           </grid>
@@ -402,8 +277,8 @@
             <constraints>
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="40" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="40" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -415,8 +290,8 @@
             <constraints>
               <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="40" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="40" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -492,7 +367,7 @@
       <grid id="ec873" binding="textPanel" layout-manager="GridLayoutManager" row-count="11" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="6">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="20" column="1" row-span="8" col-span="3" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+          <grid row="24" column="1" row-span="8" col-span="3" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
             <maximum-size width="300" height="-1"/>
           </grid>
         </constraints>
@@ -523,8 +398,8 @@
             <constraints>
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="40" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="40" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -567,8 +442,9 @@
               <component id="8d681" class="com.imagegenerator.gui.MyTextField" binding="iterationsTF">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="40" height="30"/>
-                    <maximum-size width="-1" height="30"/>
+                    <minimum-size width="-1" height="25"/>
+                    <preferred-size width="40" height="25"/>
+                    <maximum-size width="-1" height="25"/>
                   </grid>
                 </constraints>
                 <properties>
@@ -631,8 +507,8 @@
             <constraints>
               <grid row="8" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="230" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="230" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -645,8 +521,8 @@
             <constraints>
               <grid row="5" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="200" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="200" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -685,8 +561,8 @@
             <constraints>
               <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="130" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="130" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -716,7 +592,7 @@
       </grid>
       <hspacer id="db998">
         <constraints>
-          <grid row="28" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="32" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="20"/>
             <preferred-size width="-1" height="30"/>
             <maximum-size width="-1" height="30"/>
@@ -788,8 +664,8 @@
             <constraints>
               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="70" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="70" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -801,8 +677,8 @@
             <constraints>
               <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
-                <preferred-size width="70" height="30"/>
-                <maximum-size width="-1" height="30"/>
+                <preferred-size width="70" height="25"/>
+                <maximum-size width="-1" height="25"/>
               </grid>
             </constraints>
             <properties>
@@ -850,13 +726,132 @@
       </component>
       <hspacer id="55701">
         <constraints>
-          <grid row="30" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="34" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="20"/>
             <preferred-size width="-1" height="30"/>
             <maximum-size width="-1" height="30"/>
           </grid>
         </constraints>
       </hspacer>
+      <grid id="10577" layout-manager="GridLayoutManager" row-count="6" column-count="39" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="20" column="5" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-12762040"/>
+        </properties>
+        <border type="etched">
+          <color color="-11840423"/>
+        </border>
+        <children>
+          <component id="784d4" class="javax.swing.JTextField" binding="directoryTF">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="36" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="300" height="25"/>
+                <maximum-size width="-1" height="25"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-394759"/>
+              <foreground color="-14474461"/>
+              <horizontalAlignment value="2"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="29197" class="javax.swing.JButton" binding="generateImageFileButton">
+            <constraints>
+              <grid row="4" column="37" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="138" height="25"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="Generate Image File"/>
+            </properties>
+          </component>
+          <component id="42982" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="146" height="16"/>
+              </grid>
+            </constraints>
+            <properties>
+              <foreground color="-2829100"/>
+              <text value="Filename"/>
+            </properties>
+          </component>
+          <vspacer id="42494">
+            <constraints>
+              <grid row="1" column="0" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <vspacer id="e000b">
+            <constraints>
+              <grid row="1" column="38" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <hspacer id="4bcc3">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="37" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="10"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <hspacer id="432ab">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="38" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="10"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <component id="6300c" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="35" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="146" height="16"/>
+              </grid>
+            </constraints>
+            <properties>
+              <foreground color="-2829100"/>
+              <text value="Directory (default is program's directory)"/>
+            </properties>
+          </component>
+          <component id="e6a1" class="com.imagegenerator.gui.MyTextField" binding="fileNameTF">
+            <constraints>
+              <grid row="1" column="6" row-span="1" col-span="30" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="25"/>
+                <preferred-size width="200" height="25"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="7eefd" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="146" height="16"/>
+              </grid>
+            </constraints>
+            <properties>
+              <foreground color="-2829100"/>
+              <text value="Image extension"/>
+            </properties>
+          </component>
+          <component id="b3660" class="javax.swing.JComboBox" binding="extensionDropDown">
+            <constraints>
+              <grid row="2" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value=".png"/>
+                <item value=".jpg"/>
+              </model>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>
