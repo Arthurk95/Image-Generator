@@ -35,6 +35,10 @@ public class MainUI {
     private MyTextField textFontTF;
     private JCheckBox iterativeCheckBox;
     private MyTextField iterationsTF;
+    private JCheckBox textCheckBox;
+    private JComboBox extensionDropDown;
+    private JPanel textPanel;
+    private JPanel iteratePanel;
     private ImageGenerator ig;
     private int width, height, textX, textY, fontSize, previewWidth, previewHeight;
     private double topGradient, bottomGradient, ratio;
@@ -42,33 +46,40 @@ public class MainUI {
     private void createUIComponents(){}
 
     public MainUI(){
-        iterationsTF.setEnabled(false);
-        iterativeCheckBox.addActionListener(new ActionListener() {
+        flickTextEnable();
+        iterationsTF.setDisabled();
+
+        textCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event){
-                if(iterativeCheckBox.isSelected()){
-                    iterationsTF.setEnabled(true);
-                    iterationsTF.setBackground(MyTextField.BG_COLOR);
-                    iterationsTF.setForeground(MyTextField.FG_COLOR);
-                }
-                else {
-                    iterationsTF.setBackground(MyTextField.DISABLED_BG_COLOR);
-                    iterationsTF.setForeground(MyTextField.DISABLED_FG_COLOR);
-                    iterationsTF.setEnabled(false);
-                }
+                flickTextEnable();
             }
         });
 
+        /* Check box checked/unchecked */
+        iterativeCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event){
+                if(iterativeCheckBox.isSelected())
+                    iterationsTF.setEnabled();
+                else iterationsTF.setDisabled();
+            }
+        });
+
+        /* Saves the image to a file */
         generateImageFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event){
                 getValues();
-
+                String directory = directoryTF.getText();
+                if(textCheckBox.isSelected())
+                    directory = directory+textContentTF.getText();
+                else
                 initGenerator();
                 BufferedImage image = ig.generateImage();
-                File file = new File("testimage.png");
+                File file = new File(directory);
                 try {
-                    ImageIO.write(image, "png", file);
+                    ImageIO.write(image, extensionDropDown.getName(), file);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -93,15 +104,17 @@ public class MainUI {
         });
     }
 
+    /* Initializes the generator by passing it all of the values */
     private void initGenerator(){
         ig = new ImageGenerator(width, height, topGradient, bottomGradient);
         ig.setColors(getColor(mainColorTF), getColor(gradientColorTF));
-        if(textContentTF.getText().length() > 0 && !(textContentTF.getText().equals("Enter Text Here"))){
+        if(textCheckBox.isSelected()){
             ig.setText(textContentTF.getText(), getColor(textColorTF),
                     Integer.parseInt(textFontSizeTF.getText()), textFontTF.getText());
         }
     }
 
+    /* Converts the content of each MyTextField to its appropriate type */
     private void getValues(){
         try {
             width = Integer.parseInt(imageWidthTF.getText());
@@ -140,6 +153,7 @@ public class MainUI {
         getTextValues();
     }
 
+    /* Converts any MyTextField related to the Text generation to its appropriate type */
     private void getTextValues(){
         String text = textxyTF.getText();
         String[] textSplit = text.split(",");
@@ -159,6 +173,7 @@ public class MainUI {
         }
     }
 
+    /* Converts the MyTextField's text to three RGB values, and returns it as a Color */
     private Color getColor(MyTextField tf){
         String colorString = tf.getText();
         String[] colors = colorString.split(",");
@@ -174,6 +189,21 @@ public class MainUI {
         }
     }
 
+    /* Recursive function to scale the dimensions of the image to fit within the
+     * previewPanel container. That is, if the width of the generated image is greater
+     * than that of the previewPanel's width, find how much greater (ratio),
+     * set the previewWidth to previewPanel's width, and divide the previewHeight
+     * by the ratio.
+     * Repeat for the previewHeight.
+     *
+     * previewWidth and previewHeight start as the width/height for the generated image.
+     *
+     * EX:      previewPanel.getWidth() = 100; width = 110;
+     *          ratio = 110/110 = 1.1
+     *          previewPanel.getHeight() = 100; height = 50
+     *
+     * result:  previewWidth = previewPanel.getWidth() = 100
+     *          previewHeight = previewHeight/ratio = 50/1.1 = 45*/
     private void fitToPreview(){
         if (previewWidth > imagePreviewPanel.getWidth()){
             ratio = (double)previewWidth/imagePreviewPanel.getWidth();
@@ -189,12 +219,37 @@ public class MainUI {
         }
     }
 
+    /* Resets the previewPanel container, removing any previously generated previews */
     private void clearPreview(Graphics g){
         g.clearRect(0,0,imagePreviewPanel.getWidth(), imagePreviewPanel.getHeight());
         g.setColor(mainPanel.getBackground());
         g.fillRect(0,0,imagePreviewPanel.getWidth(), imagePreviewPanel.getHeight());
     }
 
+    private void flickTextEnable(){
+        enableComponents(textPanel,textCheckBox.isSelected());
+        if(textCheckBox.isSelected()){
+            textPanel.setBackground(new Color(61,68,72));
+            iteratePanel.setBackground(new Color(61,68,72));
+        }
+        else {
+            textPanel.setBackground(new Color(61,61,61));
+            iteratePanel.setBackground(new Color(61,61,61));
+        }
+    }
+
+    public void enableComponents(Container container, boolean enable) {
+        Component[] components = container.getComponents();
+        for (Component component : components) {
+            component.setEnabled(enable);
+            if (component instanceof Container) {
+                enableComponents((Container)component, enable);
+            }
+        }
+    }
+
+    /* Unused for now.
+     * generates a slight gradient for the MainPanel background */
     private void drawBG(Graphics g){
         Color mainColor = new Color(69,77,81);
         Color gradientColor = new Color(75,83,87);
