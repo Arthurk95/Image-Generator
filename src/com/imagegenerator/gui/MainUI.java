@@ -2,15 +2,12 @@ package com.imagegenerator.gui;
 
 import com.imagegenerator.ImageGenerator;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 public class MainUI{
 
@@ -42,7 +39,7 @@ public class MainUI{
     private JTextPane consolePane;
     private MyConsoleField consoleField = new MyConsoleField();
     private ImageGenerator ig;
-    private int width, height, textX, textY, fontSize, previewWidth, previewHeight, iterations;
+    private int width, height, fontSize, previewWidth, previewHeight, iterations;
     private double topGradient, bottomGradient, ratio;
     private String directory, textContent, extension, fileName;
 
@@ -52,7 +49,6 @@ public class MainUI{
         flickTextEnable();
         styleConsole();
         iterationsTF.setDisabled();
-
         textCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event){
@@ -110,18 +106,8 @@ public class MainUI{
         generatePreviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getValues();
-                if(iterativeCheckBox.isSelected())
-                    textContent = textContent + " 1";
-                initGenerator();
-                int centerWidthPreview = imagePreviewPanel.getWidth()/2;
-                int centerHeightPreview = imagePreviewPanel.getHeight()/2;
-                fitToPreview();
-                Graphics g = imagePreviewPanel.getGraphics();
-                clearPreview(g);
-                g.drawImage(ig.getImage(),
-                        centerWidthPreview-(previewWidth/2), centerHeightPreview-(previewHeight/2),
-                        previewWidth, previewHeight, null);
+                drawPreview();
+
             }
         });
     }
@@ -131,10 +117,24 @@ public class MainUI{
         ig = new ImageGenerator(width, height, topGradient, bottomGradient);
         ig.setColors(getColor(mainColorTF), getColor(gradientColorTF));
         if(textCheckBox.isSelected()){
-            ig.setText(textContent, getColor(textColorTF),
-                    Integer.parseInt(textFontSizeTF.getText()), textFontTF.getText());
+            ig.setText(textContent, getColor(textColorTF), fontSize, textFontTF.getText());
         }
         ig.generateImage();
+    }
+
+    public void drawPreview(){
+        getValues();
+        if(iterativeCheckBox.isSelected())
+            textContent = textContent + " 1";
+        initGenerator();
+        int centerWidthPreview = imagePreviewPanel.getWidth()/2;
+        int centerHeightPreview = imagePreviewPanel.getHeight()/2;
+        fitToPreview();
+        Graphics g = imagePreviewPanel.getGraphics();
+        clearPreview(g);
+        g.drawImage(ig.getImage(),
+                centerWidthPreview-(previewWidth/2), centerHeightPreview-(previewHeight/2),
+                previewWidth, previewHeight, null);
     }
 
     /* Converts the content of each MyTextField to its appropriate type */
@@ -261,9 +261,11 @@ public class MainUI{
 
     /* Resets the previewPanel container, removing any previously generated previews */
     private void clearPreview(Graphics g){
-        g.clearRect(0,0,imagePreviewPanel.getWidth(), imagePreviewPanel.getHeight());
-        g.setColor(mainPanel.getBackground());
-        g.fillRect(0,0,imagePreviewPanel.getWidth(), imagePreviewPanel.getHeight());
+        try {
+            g.clearRect(0, 0, imagePreviewPanel.getWidth(), imagePreviewPanel.getHeight());
+            g.setColor(mainPanel.getBackground());
+            g.fillRect(0, 0, imagePreviewPanel.getWidth(), imagePreviewPanel.getHeight());
+        } catch(Exception e){}
     }
 
     private void flickTextEnable(){
