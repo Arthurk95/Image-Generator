@@ -6,12 +6,10 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class ImageGenerator {
     private int imageWidth; // columns in array | x-axis
     private int imageHeight; // rows in array | y-axis
-    private int textSize;
     private Color mainColor, gradientColor, textColor;
     private String text;
     private Font textFont;
@@ -30,18 +28,20 @@ public class ImageGenerator {
     }
 
     public void setText(String t, Color c, int size, String font){
-        text = t; textColor = c; textSize = size;
-        textFont = new Font(font, Font.PLAIN, textSize);
+        text = t; textColor = c;
+        textFont = new Font(font, Font.PLAIN, size);
     }
 
-    public void writeFile(String dir, String ext){
-        generateImage();
-        File file = new File(dir);
+    public File writeFile(String dir, String ext){
+
+        String ext2 = ext.substring(1,4);
+        File file = new File(dir+ext);
         try {
-            ImageIO.write(bf, ext, file);
+            ImageIO.write(bf, ext2, file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return file;
     }
 
     public BufferedImage getImage(){
@@ -68,9 +68,18 @@ public class ImageGenerator {
         graph2D.setPaint(bottomGradient);
         graph2D.fill(new Rectangle2D.Double(0, (int)gradientBot, imageWidth, imageHeight));
         if(text != null && (text.length() > 0)) {
-            graph2D.setFont(textFont);
-            graph2D.setColor(textColor);
-            graph2D.drawString(text, (imageWidth / 2) - textSize - (text.length()*5), (imageHeight / 2) + textSize);
+            centerString(graph2D);
         }
+    }
+
+    public void centerString(Graphics2D g) {
+        FontMetrics metrics = g.getFontMetrics(textFont);
+        // Determine the X coordinate for the text
+        int x = (imageWidth - metrics.stringWidth(text))/2;
+        // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
+        int y = ((imageHeight - metrics.getHeight())/2) + metrics.getAscent();
+        g.setFont(textFont);
+        g.setColor(textColor);
+        g.drawString(text, x, y);
     }
 }
