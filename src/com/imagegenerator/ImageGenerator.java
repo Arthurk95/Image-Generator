@@ -34,7 +34,21 @@ public class ImageGenerator {
         textFont = new Font(font, Font.PLAIN, textSize);
     }
 
-    public BufferedImage generateImage(){
+    public void writeFile(String dir, String ext){
+        generateImage();
+        File file = new File(dir);
+        try {
+            ImageIO.write(bf, ext, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public BufferedImage getImage(){
+        return bf;
+    }
+
+    public void generateImage(){
         bf = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graph2D = bf.createGraphics();
 
@@ -58,6 +72,5 @@ public class ImageGenerator {
             graph2D.setColor(textColor);
             graph2D.drawString(text, (imageWidth / 2) - textSize - (text.length()*5), (imageHeight / 2) + textSize);
         }
-        return bf;
     }
 }
