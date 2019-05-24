@@ -15,6 +15,7 @@ public class MyTextField extends JTextField {
     private Color currentBorderColor = BORDER_COLOR;
     public MyTextField(){
         super();
+        setCaretColor(FG_COLOR);
         setOpaque(false);
         format();
     }
