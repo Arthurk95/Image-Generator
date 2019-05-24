@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MainUI {
+public class MainUI{
 
     private final int MAX_DIMENSION_SIZE = 2000;
     public JPanel mainPanel;
@@ -26,7 +26,6 @@ public class MainUI {
     private JButton generateImageFileButton;
     private MyTextField textColorTF;
     private MyTextField botGradientTF;
-    private MyTextField textxyTF;
     private MyTextField textContentTF;
     private MyTextField textFontSizeTF;
     private JPanel colorsPanel;
@@ -39,16 +38,19 @@ public class MainUI {
     private JComboBox extensionDropDown;
     private JPanel textPanel;
     private JPanel iteratePanel;
-    private JLabel directoryLabel;
+    private JTextField fileNameTF;
+    private JTextPane consolePane;
+    private MyConsoleField consoleField = new MyConsoleField();
     private ImageGenerator ig;
     private int width, height, textX, textY, fontSize, previewWidth, previewHeight, iterations;
     private double topGradient, bottomGradient, ratio;
-    private String directory, textContent;
+    private String directory, textContent, extension, fileName;
 
     private void createUIComponents(){}
 
     public MainUI(){
         flickTextEnable();
+        styleConsole();
         iterationsTF.setDisabled();
 
         textCheckBox.addActionListener(new ActionListener() {
@@ -63,8 +65,8 @@ public class MainUI {
             @Override
             public void actionPerformed(ActionEvent event){
                 if(iterativeCheckBox.isSelected())
-                    iterationsTF.setEnabled();
-                else iterationsTF.setDisabled();
+                    iterationsTF.setEnabled(true);
+                else iterationsTF.setEnabled(false);
             }
         });
 
@@ -73,37 +75,35 @@ public class MainUI {
             @Override
             public void actionPerformed(ActionEvent event){
                 getValues();
-                File dir = new File(directory);
-                boolean directoryCreated = dir.mkdir();
-
-                if(directoryCreated){
-                    directoryLabel.setText("Directory " + directory + " successfully created");
-                    directoryTF.setText("");
-                }
-                else {
-                    directoryLabel.setText("Directory " + directory + " not created: either exists or invalid name");
-                }
-
-
-
-                if(textCheckBox.isSelected())
-                    directory = directory+textContentTF.getText()+extensionDropDown.getName();
-                else{
-                    directory = directory+"generatedfile"+extensionDropDown.getName();
-                }
-
+                File f;
+                // creates a new directory
+                if(directory.equals("")){}
+                else createDirectory();
 
                 /* draw and write multiple images */
                 if(textCheckBox.isSelected() && iterativeCheckBox.isSelected()){
                     int iterations = Integer.parseInt(iterationsTF.getText());
+                    String temp = textContent;
                     for(int i = 1; i <= iterations; i++){
                         textContent = textContent + " " + i;
                         initGenerator();
-                        ig.writeFile(directory, extensionDropDown.getName());
+                        f = ig.writeFile(directory+fileName+i, extension);
+                        textContent = temp;
+                        consoleField.appendCreateFile(f.getAbsolutePath().replace(
+                                fileName+i+extension, ""),fileName+i+extension);
+                        consolePane.setStyledDocument(consoleField.getPane().getStyledDocument());
                     }
                 }
-                else initGenerator();
+                else {
+                    initGenerator();
+                    f = ig.writeFile(directory+fileName, extension);
+                    if(directory.equals(""))
+                        directory = f.getAbsolutePath().replace(fileName+extension,"");
+                    consoleField.appendCreateFile(f.getAbsolutePath().replace(
+                            fileName+extension, ""),fileName+extension);
+                    consolePane.setStyledDocument(consoleField.getPane().getStyledDocument());
 
+                }
             }
         });
 
@@ -111,6 +111,8 @@ public class MainUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 getValues();
+                if(iterativeCheckBox.isSelected())
+                    textContent = textContent + " 1";
                 initGenerator();
                 int centerWidthPreview = imagePreviewPanel.getWidth()/2;
                 int centerHeightPreview = imagePreviewPanel.getHeight()/2;
@@ -129,9 +131,10 @@ public class MainUI {
         ig = new ImageGenerator(width, height, topGradient, bottomGradient);
         ig.setColors(getColor(mainColorTF), getColor(gradientColorTF));
         if(textCheckBox.isSelected()){
-            ig.setText(textContentTF.getText(), getColor(textColorTF),
+            ig.setText(textContent, getColor(textColorTF),
                     Integer.parseInt(textFontSizeTF.getText()), textFontTF.getText());
         }
+        ig.generateImage();
     }
 
     /* Converts the content of each MyTextField to its appropriate type */
@@ -170,21 +173,13 @@ public class MainUI {
         } catch(Exception e){
             botGradientTF.redBorder();}
 
-        directory = directoryTF.getText();
+        getDirectoryValues();
         getTextValues();
     }
 
     /* Converts any MyTextField related to the Text generation to its appropriate type */
     private void getTextValues(){
-        String text = textxyTF.getText();
-        String[] textSplit = text.split(",");
-        try {
-            textX = Integer.parseInt(textSplit[0]);
-            textY = Integer.parseInt(textSplit[1]);
-            textxyTF.normalBorder();
-        } catch(Exception e){ textxyTF.redBorder();}
-
-        text = textFontSizeTF.getText();
+        String text = textFontSizeTF.getText();
         try{
             fontSize = Integer.parseInt(text);
             textFontSizeTF.normalBorder();
@@ -200,6 +195,21 @@ public class MainUI {
         } catch(Exception e){
             iterationsTF.redBorder();
             iterations = 1;
+        }
+
+        textContent = textContentTF.getText();
+    }
+
+    private void getDirectoryValues() {
+        fileName = fileNameTF.getText();
+        extension = (String) extensionDropDown.getSelectedItem();
+        directory = directoryTF.getText();
+        if (directory.equals("")) {
+        } else {
+            char dirEnd = directory.charAt(directory.length() - 1);
+            if (dirEnd != '\\') {
+                directory = directory + "\\";
+            }
         }
     }
 
@@ -266,9 +276,12 @@ public class MainUI {
             textPanel.setBackground(new Color(61,61,61));
             iteratePanel.setBackground(new Color(61,61,61));
         }
+        if(!iterativeCheckBox.isSelected()){
+            iterationsTF.setEnabled(false);
+        }
     }
 
-    public void enableComponents(Container container, boolean enable) {
+    private void enableComponents(Container container, boolean enable) {
         Component[] components = container.getComponents();
         for (Component component : components) {
             component.setEnabled(enable);
@@ -276,6 +289,20 @@ public class MainUI {
                 enableComponents((Container)component, enable);
             }
         }
+    }
+
+    private void createDirectory(){
+        File dir = new File(directory);
+        boolean directoryCreated = dir.mkdir();
+        if(directoryCreated){
+            consoleField.appendDirWriteSuccess(directory);
+        }
+        else consoleField.appendDirWriteFail(directory);
+    }
+
+    private void styleConsole(){
+        consolePane.setBackground(new Color(45,45,45));
+        consolePane.setFont(new Font("Courier New", Font.PLAIN, 12));
     }
 
     /* Unused for now.
