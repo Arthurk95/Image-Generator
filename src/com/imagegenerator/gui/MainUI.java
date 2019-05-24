@@ -39,6 +39,7 @@ public class MainUI {
     private JComboBox extensionDropDown;
     private JPanel textPanel;
     private JPanel iteratePanel;
+    private JLabel directoryLabel;
     private ImageGenerator ig;
     private int width, height, textX, textY, fontSize, previewWidth, previewHeight, iterations;
     private double topGradient, bottomGradient, ratio;
@@ -72,6 +73,18 @@ public class MainUI {
             @Override
             public void actionPerformed(ActionEvent event){
                 getValues();
+                File dir = new File(directory);
+                boolean directoryCreated = dir.mkdir();
+
+                if(directoryCreated){
+                    directoryLabel.setText("Directory " + directory + " successfully created");
+                    directoryTF.setText("");
+                }
+                else {
+                    directoryLabel.setText("Directory " + directory + " not created: either exists or invalid name");
+                }
+
+
 
                 if(textCheckBox.isSelected())
                     directory = directory+textContentTF.getText()+extensionDropDown.getName();
