@@ -40,8 +40,9 @@ public class MainUI {
     private JPanel textPanel;
     private JPanel iteratePanel;
     private ImageGenerator ig;
-    private int width, height, textX, textY, fontSize, previewWidth, previewHeight;
+    private int width, height, textX, textY, fontSize, previewWidth, previewHeight, iterations;
     private double topGradient, bottomGradient, ratio;
+    private String directory, textContent;
 
     private void createUIComponents(){}
 
@@ -71,18 +72,25 @@ public class MainUI {
             @Override
             public void actionPerformed(ActionEvent event){
                 getValues();
-                String directory = directoryTF.getText();
+
                 if(textCheckBox.isSelected())
-                    directory = directory+textContentTF.getText();
-                else
-                initGenerator();
-                BufferedImage image = ig.generateImage();
-                File file = new File(directory);
-                try {
-                    ImageIO.write(image, extensionDropDown.getName(), file);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    directory = directory+textContentTF.getText()+extensionDropDown.getName();
+                else{
+                    directory = directory+"generatedfile"+extensionDropDown.getName();
                 }
+
+
+                /* draw and write multiple images */
+                if(textCheckBox.isSelected() && iterativeCheckBox.isSelected()){
+                    int iterations = Integer.parseInt(iterationsTF.getText());
+                    for(int i = 1; i <= iterations; i++){
+                        textContent = textContent + " " + i;
+                        initGenerator();
+                        ig.writeFile(directory, extensionDropDown.getName());
+                    }
+                }
+                else initGenerator();
+
             }
         });
 
@@ -94,10 +102,9 @@ public class MainUI {
                 int centerWidthPreview = imagePreviewPanel.getWidth()/2;
                 int centerHeightPreview = imagePreviewPanel.getHeight()/2;
                 fitToPreview();
-                BufferedImage image = ig.generateImage();
                 Graphics g = imagePreviewPanel.getGraphics();
                 clearPreview(g);
-                g.drawImage(image,
+                g.drawImage(ig.getImage(),
                         centerWidthPreview-(previewWidth/2), centerHeightPreview-(previewHeight/2),
                         previewWidth, previewHeight, null);
             }
@@ -150,6 +157,7 @@ public class MainUI {
         } catch(Exception e){
             botGradientTF.redBorder();}
 
+        directory = directoryTF.getText();
         getTextValues();
     }
 
@@ -170,6 +178,15 @@ public class MainUI {
         } catch(Exception e){
             textFontSizeTF.redBorder();
             fontSize = 18;
+        }
+
+        text = iterationsTF.getText();
+        try{
+            iterations = Integer.parseInt(text);
+            iterationsTF.normalBorder();
+        } catch(Exception e){
+            iterationsTF.redBorder();
+            iterations = 1;
         }
     }
 
