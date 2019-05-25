@@ -20,7 +20,6 @@ public class MainUI{
     private MyTextField mainColorTF;
     private MyTextField gradientColorTF;
     private MyTextField topGradientTF;
-    private PreviewPanel imagePreviewPanel;
     private JButton generatePreviewButton;
     private JButton generateImageFileButton;
     private MyTextField textColorTF;
@@ -39,7 +38,7 @@ public class MainUI{
     private JTextField fileNameTF;
     private JTextPane consolePane;
     private JPanel dimensionsPanel;
-    private MyFieldLabel myFieldLabel1;
+    private JPanel imagePreviewPanel;
     private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
     private int width, height, fontSize, previewWidth, previewHeight, iterations;
@@ -52,7 +51,6 @@ public class MainUI{
 
     public MainUI(){
         mainPanel.setSize(new Dimension(800,900));
-        RepaintManager.currentManager(imagePreviewPanel).markCompletelyClean(imagePreviewPanel);
         textCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event){
@@ -328,7 +326,6 @@ public class MainUI{
         }
         else {
             textPanel.setBackground(new Color(61,61,61));
-            iteratePanel.setBackground(new Color(61,61,61));
         }
         if(!iterativeCheckBox.isSelected()){
             iterationsTF.setEnabled(false);

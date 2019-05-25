@@ -25,6 +25,5 @@ public class test {
     private JButton generateImageFileButton;
     private JComboBox extensionDropDown;
     private MyTextField fileNameTF;
-    private PreviewPanel imagePreviewPanel;
     private JButton generatePreviewButton;
 }
