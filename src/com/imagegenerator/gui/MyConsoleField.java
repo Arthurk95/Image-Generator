@@ -27,6 +27,10 @@ class MyConsoleField{
         return pane.getStyledDocument();
     }
 
+    public void appendErrorMessage(String error){
+        appendToPane("ERROR: "+error+"\n", Color.RED);
+    }
+
     /**
      * Appends the following message format:
      *      Created file *file* at *dir*

@@ -13,13 +13,14 @@ public class MainUI{
 
     private final int MAX_DIMENSION_SIZE = 2000;
     private final int MAX_ITERATIONS = 100;
+    private Color mainColor, gradientColor, textColor;
     public JPanel mainPanel;
     private MyTextField imageWidthTF;
     private MyTextField imageHeightTF;
     private MyTextField mainColorTF;
     private MyTextField gradientColorTF;
     private MyTextField topGradientTF;
-    private JPanel imagePreviewPanel;
+    private PreviewPanel imagePreviewPanel;
     private JButton generatePreviewButton;
     private JButton generateImageFileButton;
     private MyTextField textColorTF;
@@ -28,7 +29,6 @@ public class MainUI{
     private MyTextField textFontSizeTF;
     private JPanel colorsPanel;
     private JTextField directoryTF;
-    private JPanel gradientPanel;
     private MyTextField textFontTF;
     private JCheckBox iterativeCheckBox;
     private MyTextField iterationsTF;
@@ -38,18 +38,21 @@ public class MainUI{
     private JPanel iteratePanel;
     private JTextField fileNameTF;
     private JTextPane consolePane;
-    private MyConsoleField consoleField = new MyConsoleField();
+    private JPanel dimensionsPanel;
+    private MyFieldLabel myFieldLabel1;
+    private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
     private int width, height, fontSize, previewWidth, previewHeight, iterations;
     private double topGradient, bottomGradient, ratio;
     private String directory, textContent, extension, fileName;
+    private boolean canGenerate = true;
 
-    private void createUIComponents(){}
+    private void createUIComponents(){
+    }
 
     public MainUI(){
-        flickTextEnable();
-        styleConsole();
-        iterationsTF.setDisabled();
+        mainPanel.setSize(new Dimension(800,900));
+        RepaintManager.currentManager(imagePreviewPanel).markCompletelyClean(imagePreviewPanel);
         textCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event){
@@ -72,35 +75,52 @@ public class MainUI{
             @Override
             public void actionPerformed(ActionEvent event){
                 getValues();
+                repaintPanels();
                 // creates a new directory
                 if(directory.equals("")){}
                 else createDirectory();
-
-                /* draw and write multiple images */
-                if(textCheckBox.isSelected() && iterativeCheckBox.isSelected()){
-                    String tempText = textContent;
-                    String tempFileName = fileName;
-                    for(int i = 1; i <= iterations; i++){
-                        textContent = textContent + " " + i;
-                        fileName = fileName + i;
-                        createImageFile();
-                        textContent = tempText;
-                        fileName = tempFileName;
-                    }
+                if(!canGenerate){
+                    canGenerate = true;
                 }
                 else {
-                    generateImage();
-                    createImageFile();
+                    /* draw and write multiple images */
+                    if (textCheckBox.isSelected() && iterativeCheckBox.isSelected()) {
+                        String tempText = textContent;
+                        String tempFileName = fileName;
+                        for (int i = 1; i <= iterations; i++) {
+                            textContent = textContent + " " + i;
+                            fileName = fileName + i;
+                            createImageFile();
+                            textContent = tempText;
+                            fileName = tempFileName;
+                        }
+                    } else {
+                        generateImage();
+                        createImageFile();
+                    }
                 }
+
             }
         });
         generatePreviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                drawPreview();
-
+                getValues();
+                repaintPanels();
+                if(!canGenerate)
+                    canGenerate = true;
+                else drawPreview();
             }
         });
+        flickTextEnable();
+        styleConsole();
+        iterationsTF.setDisabled();
+        styleComboBox();
+    }
+
+    private void repaintPanels(){
+        dimensionsPanel.repaint();
+        textPanel.repaint();
     }
 
     /* Calls the necessary methods in ImageGenerator to create and write an image */
@@ -108,18 +128,18 @@ public class MainUI{
         File f;
         generateImage();
         f = ig.writeFile(directory+fileName, extension);
-        consoleField.appendCreateFile(f.getAbsolutePath().replace(
+        consoleOutput.appendCreateFile(f.getAbsolutePath().replace(
                 fileName+extension, ""),fileName+extension);
-        consolePane.setStyledDocument(consoleField.getStyledDoc());
+        consolePane.setStyledDocument(consoleOutput.getStyledDoc());
     }
 
     /* Initializes the generator by passing it all of the values.
      * Generates the image */
     private void generateImage(){
         ig = new ImageGenerator(width, height, topGradient, bottomGradient);
-        ig.setColors(getColor(mainColorTF), getColor(gradientColorTF));
+        ig.setColors(mainColor, gradientColor);
         if(textCheckBox.isSelected()){
-            ig.setText(textContent, getColor(textColorTF), fontSize, textFontTF.getText());
+            ig.setText(textContent, textColor, fontSize, textFontTF.getText());
         }
         ig.generateImage();
     }
@@ -127,7 +147,6 @@ public class MainUI{
     /* Draws the image in the previewPanel container.
      * The image is scaled to fit within the container. */
     public void drawPreview(){
-        getValues();
         if(iterativeCheckBox.isSelected())
             textContent = textContent + " 1";
         generateImage();
@@ -150,8 +169,9 @@ public class MainUI{
             imageWidthTF.setText(String.valueOf(width));
             previewWidth = width;
             imageWidthTF.normalBorder();
-        } catch(Exception e){
-            imageWidthTF.redBorder();}
+        } catch(Exception e) {
+            invalidField(imageWidthTF);
+        }
 
         try {
             height = Integer.parseInt(imageHeightTF.getText());
@@ -161,24 +181,46 @@ public class MainUI{
             imageHeightTF.normalBorder();
             previewHeight = height;
         } catch(Exception e){
-            imageHeightTF.redBorder(); }
+            invalidField(imageHeightTF);
+        }
 
         try {
             topGradient = Double.parseDouble(topGradientTF.getText());
             topGradient = (double) height * topGradient;
             topGradientTF.normalBorder();
         } catch(Exception e){
-            topGradientTF.redBorder();}
+            invalidField(topGradientTF);
+        }
 
         try {
             bottomGradient = Double.parseDouble(botGradientTF.getText());
             bottomGradient = (double) height * (1 - bottomGradient);
             botGradientTF.normalBorder();
         } catch(Exception e){
-            botGradientTF.redBorder();}
+            invalidField(botGradientTF);
+        }
 
+        try{
+            if((Double.parseDouble(topGradientTF.getText()) + Double.parseDouble(botGradientTF.getText())) > 0.9){
+                consoleOutput.appendErrorMessage("The gradients must be less than 0.9 when added together.");
+                canGenerate = false;
+                topGradientTF.redBorder();
+                botGradientTF.redBorder();
+                consolePane.setStyledDocument(consoleOutput.getStyledDoc());
+            }
+        } catch(Exception e){}
+        mainColor = getColor(mainColorTF);
+        gradientColor = getColor(gradientColorTF);
         getDirectoryValues();
-        getTextValues();
+        if(textCheckBox.isSelected())
+            getTextValues();
+    }
+
+    private void invalidField(MyTextField field){
+        consoleOutput.appendErrorMessage("Field " + field.getName() + " invalid");
+        canGenerate = false;
+        field.redBorder();
+        consolePane.setStyledDocument(consoleOutput.getStyledDoc());
     }
 
     /* Converts any MyTextField related to the Text generation to its appropriate type */
@@ -188,7 +230,7 @@ public class MainUI{
             fontSize = Integer.parseInt(text);
             textFontSizeTF.normalBorder();
         } catch(Exception e){
-            textFontSizeTF.redBorder();
+            invalidField(textFontSizeTF);
             fontSize = 18;
         }
 
@@ -199,10 +241,9 @@ public class MainUI{
                 iterations = MAX_ITERATIONS;
             iterationsTF.normalBorder();
         } catch(Exception e){
-            iterationsTF.redBorder();
-            iterations = 1;
+            invalidField(iterationsTF);
         }
-
+        textColor = getColor(textColorTF);
         textContent = textContentTF.getText();
     }
 
@@ -232,7 +273,7 @@ public class MainUI{
             int b = Integer.parseInt(colors[2]);
             return new Color(r, g, b);
         } catch(Exception e){
-            tf.redBorder();
+            invalidField(tf);
             return null;
         }
     }
@@ -308,6 +349,7 @@ public class MainUI{
                 enableComponents((Container)component, enable);
             }
         }
+        textCheckBox.setEnabled(true);
     }
 
     /* Attempts to create a directory.
@@ -316,14 +358,23 @@ public class MainUI{
         File dir = new File(directory);
         boolean directoryCreated = dir.mkdir();
         if(directoryCreated){
-            consoleField.appendDirWriteSuccess(directory);
+            consoleOutput.appendDirWriteSuccess(directory);
         }
-        else consoleField.appendDirWriteFail(directory);
+        else consoleOutput.appendDirWriteFail(directory);
     }
 
     private void styleConsole(){
         consolePane.setBackground(new Color(45,45,45));
         consolePane.setFont(new Font("Courier New", Font.PLAIN, 12));
+    }
+
+    private void styleComboBox(){
+        UIManager.put("ComboBox.background", new Color(70,70,70));
+        UIManager.put("ComboBox.buttonShadow", new Color(80,80,80));
+        UIManager.put("ComboBox.buttonBackground", new Color(80,80,80));
+        UIManager.put("ComboBox.buttonDarkShadow", new Color(70,70,70));
+        UIManager.put("ComboBox.buttonHighlight", new Color(80,80,80));
+        UIManager.put("ComboBox.foreground", new Color(200,200,200));
     }
 
     /* Unused for now.

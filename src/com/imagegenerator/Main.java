@@ -9,14 +9,14 @@ public class Main {
 
 
     public static void main(String[] args) {
-        MainUI main = new MainUI();
         JFrame frame = new JFrame("Image Generator");
+        MainUI main = new MainUI();
         frame.setContentPane(main.mainPanel);
-        frame.setMinimumSize(main.mainPanel.getMinimumSize());
+        frame.setSize(main.mainPanel.getSize());
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        main.drawPreview();
     }
 
 }

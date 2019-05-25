@@ -2,14 +2,16 @@ package com.imagegenerator.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class MyTextField extends JTextField {
-    public static final Color BORDER_COLOR = new Color(100,100,100);
-    public static final Color BG_COLOR = new Color(58,58,58);
-    public static final Color FG_COLOR = new Color(207,207,207);
-    public static final Color DISABLED_BG_COLOR = new Color(32,32,32);
-    public static final Color DISABLED_FG_COLOR = new Color(70,70,70);
-
+    private final Color BORDER_COLOR = new Color(100,100,100);
+    private final Color BG_COLOR = new Color(58,58,58);
+    private final Color FG_COLOR = new Color(207,207,207);
+    private final Color DISABLED_BG_COLOR = new Color(32,32,32);
+    private final Color DISABLED_FG_COLOR = new Color(70,70,70);
+    private final Color SELECTED_BORDER_COLOR = new Color(50,80,120);
     private Color currentFGColor = FG_COLOR;
     private Color currentColor = BG_COLOR;
     private Color currentBorderColor = BORDER_COLOR;
@@ -18,26 +20,43 @@ public class MyTextField extends JTextField {
         setCaretColor(FG_COLOR);
         setOpaque(false);
         format();
+
+        this.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                currentBorderColor = SELECTED_BORDER_COLOR;
+                repaint();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                currentBorderColor = BORDER_COLOR;
+                repaint();
+            }
+        });
     }
 
     public void format(){
         this.setForeground(currentFGColor);
         this.setDisabledTextColor(DISABLED_FG_COLOR);
         normalBorder();
-        Font font = new Font("Courier New", Font.PLAIN,12);
+        Font font = new Font("Courier New", Font.PLAIN,11);
         this.setFont(font);
     }
 
     protected void paintComponent(Graphics g){
         //g.clearRect(0,0,this.getWidth(),this.getHeight());
         this.setForeground(currentFGColor);
-
-        g.setColor(currentColor);
-        g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+        if(this instanceof MyTextFieldLine){}
+        else {
+            g.setColor(currentColor);
+            g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+        }
         super.paintComponent(g);
     }
 
     protected void paintBorder(Graphics g){
+
         g.setColor(currentBorderColor);
         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
     }
@@ -54,6 +73,8 @@ public class MyTextField extends JTextField {
             setEnabled();
         else setDisabled();
     }
+
+    public Color getCurrentBorderColor(){return currentBorderColor;}
 
     public void setEnabled(){
         currentColor = BG_COLOR;
