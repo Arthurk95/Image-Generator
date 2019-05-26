@@ -14,7 +14,6 @@ public class PreviewPanel extends JPanel{
 
     public PreviewPanel(){
         super();
-        this.setBackground(Utility.MAIN_BG_COLOR);
     }
 
     public void drawPreviewBG(Graphics g){
@@ -29,7 +28,9 @@ public class PreviewPanel extends JPanel{
         paintBorder(g);
     }
 
-    public void paint(Graphics g){
+    public void paintComponent(Graphics g){
+        super.repaint();
+        this.removeAll();
         if(canGenerate)
             drawPreview(g);
         else {
@@ -37,16 +38,16 @@ public class PreviewPanel extends JPanel{
         }
     }
 
+
     protected void paintBorder(Graphics g){
         g.setColor(Utility.BORDER_COLOR);
         g.drawRect(previewStartX,previewStartY,previewWidth,previewHeight);
     }
 
     private void drawPreview(Graphics g){
-        int centerWidthPreview = this.getWidth() / 2;
-        int centerHeightPreview = this.getHeight() / 2;
+        int centerWidthPreview = getWidth() / 2;
+        int centerHeightPreview = getHeight() / 2;
         fitToPreview();
-        clearPreview(g);
         previewStartX = centerWidthPreview - (previewWidth / 2);
         previewStartY = centerHeightPreview - (previewHeight / 2);
         g.drawImage(ig.getImage(), previewStartX, previewStartY, previewWidth, previewHeight, null);
@@ -58,7 +59,7 @@ public class PreviewPanel extends JPanel{
         canGenerate = c;
         previewWidth = ig.getWidth();
         previewHeight = ig.getHeight();
-        paint(this.getGraphics());
+        paint(getGraphics());
     }
 
     /* Recursive function to scale the dimensions of the image to fit within the
@@ -77,8 +78,8 @@ public class PreviewPanel extends JPanel{
      * result:  previewWidth = previewPanel.getWidth() = 100
      *          previewHeight = previewHeight/ratio = 50/1.1 = 45*/
     private void fitToPreview(){
-        int maxWidth = this.getWidth()-(this.getWidth()/20);
-        int maxHeight = this.getHeight()-(this.getHeight()/20);
+        int maxWidth = getWidth()-(getWidth()/20);
+        int maxHeight = getHeight()-(getHeight()/20);
         double ratio;
         if (previewWidth > maxWidth){
             ratio = (double)previewWidth/maxWidth;
@@ -96,11 +97,7 @@ public class PreviewPanel extends JPanel{
 
     /* Resets the previewPanel container, removing any previously generated previews */
     private void clearPreview(Graphics g){
-        try {
-            g.clearRect(0, 0, this.getWidth(), this.getHeight());
-            g.setColor(Utility.MAIN_BG_COLOR);
-            g.fillRect(0,0,this.getWidth(),this.getHeight());
-        } catch(Exception e){}
+
     }
 
     private void drawString(Graphics g) {
@@ -108,9 +105,9 @@ public class PreviewPanel extends JPanel{
         int stringWidth = metrics.stringWidth("Preview");
         int stringHeight = metrics.getHeight();
         // Determine the X coordinate for the text
-        int x = ((this.getWidth() - stringWidth)/2);
+        int x = ((getWidth() - stringWidth)/2);
         // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
-        int y = ((this.getHeight() - stringHeight)/2);
+        int y = ((getHeight() - stringHeight)/2);
         g.fillRect(x-stringWidth, y-(stringHeight/2), stringWidth*4, stringHeight*2);
         y = y + metrics.getAscent();
         g.setFont(previewFont);
