@@ -42,7 +42,15 @@ public class MainUI extends JFrame{
     private String directory, textContent, extension, fileName;
     private boolean canGenerate = true;
 
-    private void createUIComponents(){ }
+    private void createUIComponents(){
+        mainPanel = new JPanel(){
+            @Override
+            public void paintComponent(Graphics g){
+                super.paintComponent(g);
+                drawBG(g);
+            }
+        };
+    }
 
     public MainUI(){
         textCheckBox.addActionListener(new ActionListener() {
@@ -343,13 +351,11 @@ public class MainUI extends JFrame{
         consolePane.setFont(new Font("Courier New", Font.PLAIN, 12));
     }
 
-
-
     /* Unused for now.
      * generates a slight gradient for the MainPanel background */
     private void drawBG(Graphics g){
         Color mainColor = new Color(69,77,81);
-        Color gradientColor = new Color(75,83,87);
+        Color gradientColor = new Color(85,93,97);
 
         Graphics2D graph2D = (Graphics2D) g;
 
@@ -372,4 +378,5 @@ public class MainUI extends JFrame{
         graph2D.fill(new Rectangle2D.Double(0, mainPanel.getHeight()-(mainPanel.getHeight()/3),
                 mainPanel.getWidth(), mainPanel.getWidth()));
     }
+
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.imagegenerator.gui.MainUI">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="35" column-count="37" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" custom-create="true" layout-manager="GridLayoutManager" row-count="35" column-count="37" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="871" height="781"/>
@@ -9,7 +9,7 @@
       <background color="-12235439"/>
       <foreground color="-12961222"/>
       <minimumSize width="780" height="650"/>
-      <opaque value="true"/>
+      <opaque value="false"/>
       <preferredSize width="780" height="650"/>
     </properties>
     <border type="none"/>
@@ -45,6 +45,7 @@
         </constraints>
         <properties>
           <background color="-12762040"/>
+          <opaque value="false"/>
         </properties>
         <border type="etched">
           <color color="-11840423"/>
@@ -161,7 +162,7 @@
           </component>
         </children>
       </grid>
-      <grid id="ec873" binding="textPanel" layout-manager="GridLayoutManager" row-count="15" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="ec873" binding="textPanel" layout-manager="GridLayoutManager" row-count="15" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="17" column="1" row-span="17" col-span="9" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false">
@@ -171,6 +172,7 @@
         </constraints>
         <properties>
           <background color="-12762040"/>
+          <opaque value="false"/>
         </properties>
         <border type="line" title="Text" title-justification="3" title-position="3">
           <font name="Calibri Light" size="11"/>
@@ -180,7 +182,7 @@
         <children>
           <hspacer id="1834">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="2" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="10"/>
                 <preferred-size width="-1" height="10"/>
               </grid>
@@ -188,7 +190,7 @@
           </hspacer>
           <hspacer id="7029a">
             <constraints>
-              <grid row="14" column="0" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="14" column="0" row-span="1" col-span="6" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="10"/>
                 <preferred-size width="-1" height="10"/>
               </grid>
@@ -204,7 +206,7 @@
           </vspacer>
           <component id="f32" class="com.imagegenerator.gui.MyTextField" binding="textFontSizeTF">
             <constraints>
-              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+              <grid row="3" column="4" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
                 <preferred-size width="40" height="25"/>
                 <maximum-size width="-1" height="25"/>
@@ -218,7 +220,7 @@
           </component>
           <component id="1e1e" class="com.imagegenerator.gui.MyTextField" binding="textColorTF">
             <constraints>
-              <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+              <grid row="4" column="3" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="100" height="25"/>
                 <preferred-size width="-1" height="25"/>
                 <maximum-size width="100" height="25"/>
@@ -232,7 +234,7 @@
           </component>
           <hspacer id="eeddf">
             <constraints>
-              <grid row="5" column="1" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="5" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="5"/>
                 <preferred-size width="-1" height="5"/>
                 <maximum-size width="-1" height="5"/>
@@ -241,7 +243,7 @@
           </hspacer>
           <component id="5a82d" class="com.imagegenerator.gui.MyTextField" binding="textFontTF">
             <constraints>
-              <grid row="7" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="7" column="1" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
                 <preferred-size width="150" height="25"/>
                 <maximum-size width="-1" height="25"/>
@@ -257,7 +259,7 @@
           </component>
           <component id="8e7d9" class="com.imagegenerator.gui.MyTextField" binding="textContentTF">
             <constraints>
-              <grid row="10" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="10" column="1" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
                 <preferred-size width="-1" height="25"/>
                 <maximum-size width="-1" height="25"/>
@@ -272,7 +274,7 @@
           </component>
           <hspacer id="daa3f">
             <constraints>
-              <grid row="8" column="1" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="8" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="5"/>
                 <preferred-size width="-1" height="5"/>
                 <maximum-size width="-1" height="5"/>
@@ -281,7 +283,7 @@
           </hspacer>
           <hspacer id="22e4f">
             <constraints>
-              <grid row="11" column="1" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="11" column="1" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="5"/>
                 <maximum-size width="-1" height="5"/>
               </grid>
@@ -289,7 +291,7 @@
           </hspacer>
           <vspacer id="91f9d">
             <constraints>
-              <grid row="1" column="4" row-span="14" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+              <grid row="1" column="6" row-span="14" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
                 <minimum-size width="10" height="-1"/>
                 <preferred-size width="10" height="-1"/>
               </grid>
@@ -297,7 +299,7 @@
           </vspacer>
           <hspacer id="7da9">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="5" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="7" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="10"/>
                 <preferred-size width="-1" height="10"/>
               </grid>
@@ -305,7 +307,7 @@
           </hspacer>
           <component id="6476c" class="javax.swing.JCheckBox" binding="iterativeCheckBox">
             <constraints>
-              <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="13" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <autoscrolls value="false"/>
@@ -320,7 +322,7 @@
           </component>
           <component id="8d681" class="com.imagegenerator.gui.MyTextField" binding="iterationsTF">
             <constraints>
-              <grid row="13" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+              <grid row="13" column="4" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="40" height="25"/>
                 <preferred-size width="-1" height="25"/>
                 <maximum-size width="-1" height="25"/>
@@ -336,7 +338,7 @@
           </component>
           <component id="46d01" class="com.imagegenerator.gui.MyFieldLabel">
             <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Size"/>
@@ -344,7 +346,7 @@
           </component>
           <component id="8248f" class="com.imagegenerator.gui.MyFieldLabel">
             <constraints>
-              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Color"/>
@@ -352,7 +354,7 @@
           </component>
           <component id="903d7" class="com.imagegenerator.gui.MyFieldLabel">
             <constraints>
-              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Font"/>
@@ -360,7 +362,7 @@
           </component>
           <component id="32fd0" class="com.imagegenerator.gui.MyFieldLabel">
             <constraints>
-              <grid row="12" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="12" column="4" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Iterations"/>
@@ -368,18 +370,34 @@
           </component>
           <component id="5fb9d" class="com.imagegenerator.gui.MyFieldLabel">
             <constraints>
-              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Content"/>
             </properties>
           </component>
-          <component id="ac5b8" class="com.imagegenerator.gui.MyRadioButton" binding="textCheckBox">
+          <component id="29088" class="com.imagegenerator.gui.MyFieldLabel">
             <constraints>
-              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <text value="Enable Text"/>
+            </properties>
+          </component>
+          <component id="ac5b8" class="com.imagegenerator.gui.MyRadioButton" binding="textCheckBox">
+            <constraints>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <maximum-size width="20" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <alignmentX value="1.0"/>
+              <alignmentY value="0.5"/>
+              <borderPainted value="false"/>
               <horizontalTextPosition value="2"/>
+              <label value=""/>
+              <opaque value="false"/>
+              <rolloverEnabled value="true"/>
               <text value=""/>
             </properties>
           </component>
@@ -395,6 +413,7 @@
         </constraints>
         <properties>
           <background color="-12762040"/>
+          <opaque value="false"/>
         </properties>
         <border type="line" title="Image Specs" title-justification="3" title-position="3">
           <font name="Calibri Light" size="11"/>
@@ -645,7 +664,9 @@
         <constraints>
           <grid row="1" column="10" row-span="15" col-span="26" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <opaque value="false"/>
+        </properties>
       </component>
     </children>
   </grid>
