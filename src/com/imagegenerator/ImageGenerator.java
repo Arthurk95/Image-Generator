@@ -73,7 +73,13 @@ public class ImageGenerator {
     public void generateImage(){
         bf = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graph2D = bf.createGraphics();
+        graph2D.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
+        graph2D.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         /* Top portion of image gradient
         * (0,0) to (0,gradientTop) */
         GradientPaint topGradient = new GradientPaint(

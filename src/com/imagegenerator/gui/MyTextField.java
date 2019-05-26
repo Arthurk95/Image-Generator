@@ -43,18 +43,24 @@ public class MyTextField extends JTextField {
 
     protected void paintComponent(Graphics g){
         this.setForeground(currentFGColor);
+        Graphics2D graph2D = (Graphics2D)g;
+        graph2D.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graph2D.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         if(this instanceof MyTextFieldLine){}
         else {
-            g.setColor(currentColor);
-            g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+            graph2D.setColor(currentColor);
+            graph2D.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+            g.setColor(currentBorderColor);
+            g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
         }
         super.paintComponent(g);
     }
 
     protected void paintBorder(Graphics g){
-
-        g.setColor(currentBorderColor);
-        g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
     }
 
     public void redBorder(){
