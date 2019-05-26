@@ -6,22 +6,50 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MyRadioButton extends JRadioButton {
-    private int radius = 14;
+    private int width = 50;
+    private int height = 25;
 
     public MyRadioButton(){
         this.setForeground(Utility.RB_MAIN_COLOR);
         this.setOpaque(false);
         this.setFont(Utility.MAIN_FONT);
-        this.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        this.setMinimumSize(new Dimension(width+5, height+5));
     }
 
     public void paint(Graphics g){
-        this.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        g.setColor(Utility.RB_MAIN_COLOR);
-        g.drawOval(0,0,radius, radius);
+        Graphics2D g2 = (Graphics2D)g;
+        Color red = new Color(150,80,80);
+        Color darkerRed = new Color(140,70,70);
+        Color blue = Utility.TF_SELECTED_BORDER_COLOR;
+        Color darkerBlue = new Color(40,70,110);
+
+        g2.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        GradientPaint gradientRed = new GradientPaint(
+                0, 0, darkerRed, 0, height, red);
+        GradientPaint gradientBlue = new GradientPaint(
+                0, 0, darkerBlue, 0, height, blue);
+        GradientPaint circleGradient = new GradientPaint(
+                0, 0, Color.LIGHT_GRAY, 0, height, Color.GRAY);
+
         if(this.isSelected()){
-            g.setColor(Utility.RB_MAIN_COLOR);
-            g.fillOval(2,2, radius-4, radius-4);
+            g2.setPaint(gradientBlue);
+            g2.fillRoundRect(1,1, width, height, height,height);
+            g2.setColor(Color.DARK_GRAY);
+            g2.drawRoundRect(0,0, width+1, height+1, height,height);
+            g2.setPaint(circleGradient);
+            g2.fillOval(width-(height)+1, 1, height,height);
         }
+        else {
+            g2.setPaint(gradientRed);
+            g2.fillRoundRect(1,1, width, height, height,height);
+            g2.setColor(Color.DARK_GRAY);
+            g2.drawRoundRect(0,0, width+1, height+1, height,height);
+            g2.setPaint(circleGradient);
+            g2.fillOval(0, 1, height,height);
+        }
+
     }
 }
