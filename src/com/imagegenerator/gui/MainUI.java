@@ -262,6 +262,8 @@ public class MainUI extends JFrame{
             textContent = textContent + " 1";
         generateImage();
         imagePreviewPanel.drawPreview(ig, canGenerate);
+        if(!canGenerate)
+            canGenerate = true;
     }
 
     private void setListeners(){
@@ -372,8 +374,8 @@ public class MainUI extends JFrame{
 
         /* Bottom of image */
         GradientPaint bottomGradient = new GradientPaint(
-                0, mainPanel.getHeight()-(mainPanel.getHeight()/3), mainColor,
-                mainPanel.getWidth()-(mainPanel.getWidth()/6), mainPanel.getHeight(), gradientColor);
+                mainPanel.getWidth()-(mainPanel.getWidth()/6), mainPanel.getHeight()-(mainPanel.getHeight()/3), mainColor,
+                mainPanel.getWidth(), mainPanel.getHeight(), gradientColor);
         graph2D.setPaint(bottomGradient);
         graph2D.fill(new Rectangle2D.Double(0, mainPanel.getHeight()-(mainPanel.getHeight()/3),
                 mainPanel.getWidth(), mainPanel.getWidth()));

@@ -45,7 +45,7 @@
         </constraints>
         <properties>
           <background color="-12762040"/>
-          <opaque value="false"/>
+          <opaque value="true"/>
         </properties>
         <border type="etched">
           <color color="-11840423"/>
@@ -172,7 +172,7 @@
         </constraints>
         <properties>
           <background color="-12762040"/>
-          <opaque value="false"/>
+          <opaque value="true"/>
         </properties>
         <border type="line" title="Text" title-justification="3" title-position="3">
           <font name="Calibri Light" size="11"/>
@@ -386,8 +386,8 @@
           </component>
           <component id="ac5b8" class="com.imagegenerator.gui.MyRadioButton" binding="textCheckBox">
             <constraints>
-              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <maximum-size width="20" height="-1"/>
+              <grid row="1" column="3" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="50" height="30"/>
               </grid>
             </constraints>
             <properties>
@@ -413,7 +413,7 @@
         </constraints>
         <properties>
           <background color="-12762040"/>
-          <opaque value="false"/>
+          <opaque value="true"/>
         </properties>
         <border type="line" title="Image Specs" title-justification="3" title-position="3">
           <font name="Calibri Light" size="11"/>
