@@ -4,12 +4,11 @@ import com.imagegenerator.ImageGenerator;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 
-public class MainUI{
+public class MainUI extends JFrame{
 
     private final int MAX_DIMENSION_SIZE = 2000;
     private final int MAX_ITERATIONS = 100;
@@ -20,25 +19,22 @@ public class MainUI{
     private MyTextField mainColorTF;
     private MyTextField gradientColorTF;
     private MyTextField topGradientTF;
-    private JButton generatePreviewButton;
     private JButton generateImageFileButton;
     private MyTextField textColorTF;
     private MyTextField botGradientTF;
     private MyTextField textContentTF;
     private MyTextField textFontSizeTF;
-    private JPanel colorsPanel;
     private JTextField directoryTF;
     private MyTextField textFontTF;
     private JCheckBox iterativeCheckBox;
     private MyTextField iterationsTF;
-    private JCheckBox textCheckBox;
+    private JRadioButton textCheckBox;
     private JComboBox extensionDropDown;
     private JPanel textPanel;
-    private JPanel iteratePanel;
     private JTextField fileNameTF;
     private JTextPane consolePane;
     private JPanel dimensionsPanel;
-    private JPanel imagePreviewPanel;
+    private PreviewPanel imagePreviewPanel;
     private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
     private int width, height, fontSize, previewWidth, previewHeight, iterations;
@@ -46,15 +42,14 @@ public class MainUI{
     private String directory, textContent, extension, fileName;
     private boolean canGenerate = true;
 
-    private void createUIComponents(){
-    }
+    private void createUIComponents(){ }
 
     public MainUI(){
-        mainPanel.setSize(new Dimension(800,900));
         textCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event){
                 flickTextEnable();
+                drawPreview();
             }
         });
 
@@ -100,20 +95,10 @@ public class MainUI{
 
             }
         });
-        generatePreviewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                getValues();
-                repaintPanels();
-                if(!canGenerate)
-                    canGenerate = true;
-                else drawPreview();
-            }
-        });
         flickTextEnable();
         styleConsole();
         iterationsTF.setDisabled();
-        styleComboBox();
+        setListeners();
     }
 
     private void repaintPanels(){
@@ -142,21 +127,7 @@ public class MainUI{
         ig.generateImage();
     }
 
-    /* Draws the image in the previewPanel container.
-     * The image is scaled to fit within the container. */
-    public void drawPreview(){
-        if(iterativeCheckBox.isSelected())
-            textContent = textContent + " 1";
-        generateImage();
-        int centerWidthPreview = imagePreviewPanel.getWidth()/2;
-        int centerHeightPreview = imagePreviewPanel.getHeight()/2;
-        fitToPreview();
-        Graphics g = imagePreviewPanel.getGraphics();
-        clearPreview(g);
-        g.drawImage(ig.getImage(),
-                centerWidthPreview-(previewWidth/2), centerHeightPreview-(previewHeight/2),
-                previewWidth, previewHeight, null);
-    }
+
 
     /* Converts the content of each MyTextField to its appropriate type */
     private void getValues(){
@@ -276,43 +247,51 @@ public class MainUI{
         }
     }
 
-    /* Recursive function to scale the dimensions of the image to fit within the
-     * previewPanel container. That is, if the width of the generated image is greater
-     * than that of the previewPanel's width, find how much greater (ratio),
-     * set the previewWidth to previewPanel's width, and divide the previewHeight
-     * by the ratio.
-     * Repeat for the previewHeight.
-     *
-     * previewWidth and previewHeight start as the width/height for the generated image.
-     *
-     * EX:      previewPanel.getWidth() = 100; width = 110;
-     *          ratio = 110/110 = 1.1
-     *          previewPanel.getHeight() = 100; height = 50
-     *
-     * result:  previewWidth = previewPanel.getWidth() = 100
-     *          previewHeight = previewHeight/ratio = 50/1.1 = 45*/
-    private void fitToPreview(){
-        if (previewWidth > imagePreviewPanel.getWidth()){
-            ratio = (double)previewWidth/imagePreviewPanel.getWidth();
-            previewWidth = imagePreviewPanel.getWidth();
-            previewHeight = (int)(previewHeight/ratio);
-            fitToPreview();
-        }
-        else if(previewHeight > imagePreviewPanel.getHeight()){
-            ratio = (double)previewHeight/imagePreviewPanel.getHeight();
-            previewHeight = imagePreviewPanel.getHeight();
-            previewWidth = (int)(previewWidth/ratio);
-            fitToPreview();
+    public void drawPreview(){
+        getValues();
+        repaintPanels();
+        if (iterativeCheckBox.isSelected())
+            textContent = textContent + " 1";
+        generateImage();
+        imagePreviewPanel.drawPreview(ig, canGenerate);
+    }
+
+    private void setListeners(){
+        addMouseListener(mainPanel);
+        Component[] comps = mainPanel.getComponents();
+        for (Component comp : comps){
+            if (comp instanceof JPanel){
+                addMouseListener((JPanel)comp);
+                Component[] subComp = ((JPanel) comp).getComponents();
+                for(Component c : subComp) {
+                    addFocusListener(c);
+                }
+            }
+            else {
+                addFocusListener(comp);
+            }
         }
     }
 
-    /* Resets the previewPanel container, removing any previously generated previews */
-    private void clearPreview(Graphics g){
-        try {
-            g.clearRect(0, 0, imagePreviewPanel.getWidth(), imagePreviewPanel.getHeight());
-            g.setColor(mainPanel.getBackground());
-            g.fillRect(0, 0, imagePreviewPanel.getWidth(), imagePreviewPanel.getHeight());
-        } catch(Exception e){}
+    private void addMouseListener(JPanel c){
+        c.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseReleased(e);
+                c.grabFocus();
+            }
+        });
+    }
+
+    private void addFocusListener(Component c){
+        c.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) { }
+            @Override
+            public void focusLost(FocusEvent e) {
+                drawPreview();
+            }
+        });
     }
 
     /* Enables/disables the entire textPanel based on the textCheckBox state.
@@ -322,7 +301,6 @@ public class MainUI{
         enableComponents(textPanel,textCheckBox.isSelected());
         if(textCheckBox.isSelected()){
             textPanel.setBackground(new Color(61,68,72));
-            iteratePanel.setBackground(new Color(61,68,72));
         }
         else {
             textPanel.setBackground(new Color(61,61,61));
@@ -365,14 +343,7 @@ public class MainUI{
         consolePane.setFont(new Font("Courier New", Font.PLAIN, 12));
     }
 
-    private void styleComboBox(){
-        UIManager.put("ComboBox.background", new Color(70,70,70));
-        UIManager.put("ComboBox.buttonShadow", new Color(80,80,80));
-        UIManager.put("ComboBox.buttonBackground", new Color(80,80,80));
-        UIManager.put("ComboBox.buttonDarkShadow", new Color(70,70,70));
-        UIManager.put("ComboBox.buttonHighlight", new Color(80,80,80));
-        UIManager.put("ComboBox.foreground", new Color(200,200,200));
-    }
+
 
     /* Unused for now.
      * generates a slight gradient for the MainPanel background */

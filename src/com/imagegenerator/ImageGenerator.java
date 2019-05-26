@@ -20,7 +20,6 @@ public class ImageGenerator {
     private Color mainColor, gradientColor, textColor;
     private String text;
     private Font textFont;
-
     /* Gradient amount for top and bottom portions of image
     * value between 0.0 and 0.5 */
     private double gradientTop, gradientBot;
@@ -38,6 +37,9 @@ public class ImageGenerator {
         text = t; textColor = c;
         textFont = new Font(font, Font.PLAIN, size);
     }
+
+    public int getWidth(){ return imageWidth; }
+    public int getHeight(){return imageHeight;}
 
     /**
      * Generates and writes an image file to disk at directory dir

@@ -21,6 +21,7 @@ class MyConsoleField{
 
     public MyConsoleField(){
         pane = new JTextPane();
+        pane.setFont(new Font("Courier New", Font.PLAIN, 8));
     }
 
     public StyledDocument getStyledDoc(){
