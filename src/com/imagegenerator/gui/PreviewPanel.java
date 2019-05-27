@@ -3,6 +3,7 @@ package com.imagegenerator.gui;
 import com.imagegenerator.ImageGenerator;
 import com.imagegenerator.Utility;
 
+import javax.rmi.CORBA.Util;
 import javax.swing.*;
 import java.awt.*;
 
@@ -110,8 +111,8 @@ public class PreviewPanel extends JPanel{
         int x = ((this.getWidth() - stringWidth)/2);
         // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
         int y = ((this.getHeight() - stringHeight)/2);
-        g.fillRect(x-stringWidth, y-(stringHeight/2), stringWidth*3, stringHeight*2);
         y = y + metrics.getAscent();
+        g.fillRect(x-stringWidth, y-(stringHeight/2), stringWidth*3, stringHeight*2);
         g.setFont(previewFont);
         g.setColor(Utility.BORDER_COLOR);
         g.drawString("Preview", x, y);

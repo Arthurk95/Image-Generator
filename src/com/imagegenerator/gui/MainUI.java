@@ -260,10 +260,14 @@ public class MainUI extends JFrame{
         repaintPanels();
         if (iterativeCheckBox.isSelected())
             textContent = textContent + " 1";
-        generateImage();
-        imagePreviewPanel.drawPreview(ig, canGenerate);
-        if(!canGenerate)
+        if(!canGenerate){
+            imagePreviewPanel.drawPreview(ig, canGenerate);
             canGenerate = true;
+        }
+        else {
+            generateImage();
+            imagePreviewPanel.drawPreview(ig, canGenerate);
+        }
     }
 
     private void setListeners(){
