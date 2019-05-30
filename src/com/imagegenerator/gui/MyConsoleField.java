@@ -17,11 +17,11 @@ class MyConsoleField{
     private static final Color TEXT_COLOR = new Color(180,180,180);
     private final Color FILENAME_COLOR = new Color(70,160,160);
     private final Color DIRECTORY_COLOR = new Color(200,200,120);
+    private final Color ERROR_COLOR = new Color(180, 60,60);
     private JTextPane pane;
 
     public MyConsoleField(){
         pane = new JTextPane();
-        pane.setFont(new Font("Courier New", Font.PLAIN, 8));
     }
 
     public StyledDocument getStyledDoc(){
@@ -29,7 +29,7 @@ class MyConsoleField{
     }
 
     public void appendErrorMessage(String error){
-        appendToPane("ERROR: "+error+"\n", Color.RED);
+        appendToPane("ERROR: "+error+"\n", ERROR_COLOR);
     }
 
     /**
@@ -74,9 +74,9 @@ class MyConsoleField{
      * @param dir   directory that has been written to
      */
     public void appendDirWriteFail(String dir){
-        appendToPane("Directory ", Color.RED);
+        appendToPane("Directory ", ERROR_COLOR);
         appendDirectory(dir);
-        appendToPane(" failed to create. It either already exists or invalid name\n", Color.RED);
+        appendToPane(" failed to create. It either already exists or invalid name\n", ERROR_COLOR);
     }
 
     /**
@@ -92,8 +92,11 @@ class MyConsoleField{
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset,StyleConstants.FontSize, 10);
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Courier New");
         aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+
 
         int len = pane.getDocument().getLength();
         pane.setCaretPosition(len);
@@ -101,4 +104,7 @@ class MyConsoleField{
         pane.replaceSelection(msg);
     }
 
+    public void resetConsole(){
+        pane.setText("");
+    }
 }
