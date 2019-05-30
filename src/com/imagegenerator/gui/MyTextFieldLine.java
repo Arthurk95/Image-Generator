@@ -4,6 +4,14 @@ import java.awt.*;
 
 public class MyTextFieldLine extends MyTextField {
 
+    public MyTextFieldLine(){
+        super();
+    }
+
+    public MyTextFieldLine(String hint){
+        super(hint);
+    }
+
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
     }
