@@ -3,6 +3,9 @@ package com.imagegenerator;
 import java.awt.*;
 
 public class Utility {
+    public final static int MAX_DIMENSION_SIZE = 2000;
+    public final static int MIN_DIMENSION_SIZE = 20;
+    public final static int MAX_ITERATIONS = 100;
     public final static Color MAIN_BG_COLOR = new Color(69,77,81);
     public final static Color BORDER_COLOR = new Color(100,100,100);
     public final static Color TF_BG_COLOR = new Color(58,58,58);
