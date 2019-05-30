@@ -1,6 +1,7 @@
 package com.imagegenerator.gui;
 
 import com.imagegenerator.ImageGenerator;
+import com.imagegenerator.Utility;
 import com.imagegenerator.gui.mycomponents.MyConsoleField;
 import com.imagegenerator.gui.mycomponents.MyTextField;
 import com.imagegenerator.gui.mycomponents.PreviewPanel;
@@ -8,13 +9,11 @@ import com.imagegenerator.gui.mycomponents.PreviewPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Rectangle2D;
 import java.io.File;
 
 public class MainUI extends JFrame{
 
-    private final int MAX_DIMENSION_SIZE = 2000;
-    private final int MAX_ITERATIONS = 100;
+
     private Color mainColor, gradientColor, textColor;
     public JPanel mainPanel;
     private MyTextField imageWidthTF;
@@ -38,16 +37,23 @@ public class MainUI extends JFrame{
     private JTextPane consolePane;
     private JPanel dimensionsPanel;
     private PreviewPanel imagePreviewPanel;
+    private JTextField linkField;
     private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
-    private int width, height, fontSize, previewWidth, previewHeight, iterations;
+    private int width, height, fontSize, iterations;
     private double topGradient, bottomGradient, ratio;
     private String directory, textContent, extension, fileName;
     private boolean canGenerate = true;
 
     private void createUIComponents(){
-
         textContentTF = new MyTextField("Enter Text Here");
+        linkField = new JTextField();
+        linkField.setText("https://github.com/Arthurk95 "); // showing off
+        linkField.setFont(new Font("Calibri", Font.PLAIN, 10));
+        linkField.setForeground(new Color(165,165,165));
+        linkField.setEditable(false); // as before
+        linkField.setBackground(null); // this is the same as a JLabel
+        linkField.setBorder(null); // remove the border
     }
 
     public MainUI(){
@@ -63,9 +69,14 @@ public class MainUI extends JFrame{
         iterativeCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event){
-                if(iterativeCheckBox.isSelected())
+                if(iterativeCheckBox.isSelected()) {
                     iterationsTF.setEnabled(true);
-                else iterationsTF.setEnabled(false);
+                    drawPreview();
+                }
+                else {
+                    iterationsTF.setEnabled(false);
+                    drawPreview();
+                }
             }
         });
 
@@ -139,10 +150,11 @@ public class MainUI extends JFrame{
     private void getValues(){
         try {
             width = Integer.parseInt(imageWidthTF.getText());
-            if(width > MAX_DIMENSION_SIZE)
-                width = MAX_DIMENSION_SIZE;
+            if(width > Utility.MAX_DIMENSION_SIZE)
+                width = Utility.MAX_DIMENSION_SIZE;
+            if(width < Utility.MIN_DIMENSION_SIZE)
+                width = Utility.MIN_DIMENSION_SIZE;
             imageWidthTF.setText(String.valueOf(width));
-            previewWidth = width;
             imageWidthTF.normalBorder();
         } catch(Exception e) {
             invalidField(imageWidthTF);
@@ -150,11 +162,12 @@ public class MainUI extends JFrame{
 
         try {
             height = Integer.parseInt(imageHeightTF.getText());
-            if (height > MAX_DIMENSION_SIZE)
-                height = MAX_DIMENSION_SIZE;
+            if (height > Utility.MAX_DIMENSION_SIZE)
+                height = Utility.MAX_DIMENSION_SIZE;
+            if(height < Utility.MIN_DIMENSION_SIZE)
+                height = Utility.MIN_DIMENSION_SIZE;
             imageHeightTF.setText(String.valueOf(height));
             imageHeightTF.normalBorder();
-            previewHeight = height;
         } catch(Exception e){
             invalidField(imageHeightTF);
         }
@@ -213,7 +226,7 @@ public class MainUI extends JFrame{
         try{
             iterations = Integer.parseInt(text);
             if(iterations > 100)
-                iterations = MAX_ITERATIONS;
+                iterations = Utility.MAX_ITERATIONS;
             iterationsTF.normalBorder();
         } catch(Exception e){
             invalidField(iterationsTF);
@@ -228,8 +241,8 @@ public class MainUI extends JFrame{
         fileName = fileNameTF.getText();
         extension = (String) extensionDropDown.getSelectedItem();
         directory = directoryTF.getText();
-        if (directory.equals("")) {
-        } else {
+        if (directory.equals("")) {}
+        else {
             char dirEnd = directory.charAt(directory.length() - 1);
             if (dirEnd != '\\') {
                 directory = directory + "\\";
@@ -358,27 +371,4 @@ public class MainUI extends JFrame{
         consolePane.setBackground(new Color(45,45,45));
         consolePane.setFont(new Font("Courier New", Font.PLAIN, 12));
     }
-
-    /* Unused for now.
-     * generates a slight gradient for the MainPanel background */
-    private void drawBG(Graphics g){
-        Color mainColor = new Color(69,77,81);
-        Color gradientColor = new Color(85,93,97);
-
-        Graphics2D graph2D = (Graphics2D) g;
-
-        /* Top portion of image gradient */
-        GradientPaint topGradient = new GradientPaint(
-                0, 0, gradientColor, mainPanel.getWidth()/2, mainPanel.getHeight()/2, mainColor);
-        graph2D.setPaint(topGradient);
-        graph2D.fill(new Rectangle2D.Double(0, 0, mainPanel.getWidth(), mainPanel.getHeight()-(mainPanel.getHeight()/2)));
-
-        /* Bottom of image */
-        GradientPaint bottomGradient = new GradientPaint(
-                0, mainPanel.getHeight(), mainColor, mainPanel.getWidth(), mainPanel.getHeight(), gradientColor);
-        graph2D.setPaint(bottomGradient);
-        graph2D.fill(new Rectangle2D.Double(0, mainPanel.getHeight()/2,
-                mainPanel.getWidth(), mainPanel.getWidth()));
-    }
-
 }
