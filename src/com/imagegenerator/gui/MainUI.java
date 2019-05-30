@@ -43,13 +43,8 @@ public class MainUI extends JFrame{
     private boolean canGenerate = true;
 
     private void createUIComponents(){
-        mainPanel = new JPanel(){
-            @Override
-            public void paintComponent(Graphics g){
-                super.paintComponent(g);
-                drawBG(g);
-            }
-        };
+
+        textContentTF = new MyTextField("Enter Text Here");
     }
 
     public MainUI(){
@@ -257,6 +252,7 @@ public class MainUI extends JFrame{
 
     public void drawPreview(){
         getValues();
+        consoleOutput.resetConsole();
         repaintPanels();
         if (iterativeCheckBox.isSelected())
             textContent = textContent + " 1";
@@ -270,6 +266,8 @@ public class MainUI extends JFrame{
         }
     }
 
+    /* Adds focus listeners to all components to draw
+     * the PreviewPanel whenever something loses focus. */
     private void setListeners(){
         addMouseListener(mainPanel);
         Component[] comps = mainPanel.getComponents();
@@ -287,6 +285,7 @@ public class MainUI extends JFrame{
         }
     }
 
+    /* Takes focus away from any other currently selected component */
     private void addMouseListener(JPanel c){
         c.addMouseListener(new MouseAdapter() {
             @Override
@@ -367,21 +366,15 @@ public class MainUI extends JFrame{
 
         /* Top portion of image gradient */
         GradientPaint topGradient = new GradientPaint(
-                0, 0, gradientColor, mainPanel.getWidth()/6, mainPanel.getHeight()/3, mainColor);
+                0, 0, gradientColor, mainPanel.getWidth()/2, mainPanel.getHeight()/2, mainColor);
         graph2D.setPaint(topGradient);
-        graph2D.fill(new Rectangle2D.Double(0, 0, mainPanel.getWidth(), mainPanel.getHeight()-(mainPanel.getHeight()/3)));
-
-        /* Middle of image */
-        graph2D.setPaint(mainColor);
-        graph2D.fill(new Rectangle2D.Double(0, mainPanel.getHeight()/3,
-                mainPanel.getWidth()-(mainPanel.getWidth()/6), mainPanel.getHeight()-(mainPanel.getHeight()/3)));
+        graph2D.fill(new Rectangle2D.Double(0, 0, mainPanel.getWidth(), mainPanel.getHeight()-(mainPanel.getHeight()/2)));
 
         /* Bottom of image */
         GradientPaint bottomGradient = new GradientPaint(
-                mainPanel.getWidth()-(mainPanel.getWidth()/6), mainPanel.getHeight()-(mainPanel.getHeight()/3), mainColor,
-                mainPanel.getWidth(), mainPanel.getHeight(), gradientColor);
+                0, mainPanel.getHeight(), mainColor, mainPanel.getWidth(), mainPanel.getHeight(), gradientColor);
         graph2D.setPaint(bottomGradient);
-        graph2D.fill(new Rectangle2D.Double(0, mainPanel.getHeight()-(mainPanel.getHeight()/3),
+        graph2D.fill(new Rectangle2D.Double(0, mainPanel.getHeight()/2,
                 mainPanel.getWidth(), mainPanel.getWidth()));
     }
 
