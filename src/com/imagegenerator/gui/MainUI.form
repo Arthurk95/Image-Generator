@@ -72,7 +72,7 @@
               </grid>
             </constraints>
           </hspacer>
-          <component id="e6a1" class="com.imagegenerator.gui.MyTextField" binding="fileNameTF">
+          <component id="e6a1" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="fileNameTF">
             <constraints>
               <grid row="1" column="4" row-span="1" col-span="8" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="200" height="25"/>
@@ -109,13 +109,7 @@
               </grid>
             </constraints>
           </hspacer>
-          <component id="17280" class="com.imagegenerator.gui.MyTextField" binding="directoryTF">
-            <constraints>
-              <grid row="5" column="1" row-span="1" col-span="12" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="c353a" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="c353a" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -137,7 +131,7 @@
               </model>
             </properties>
           </component>
-          <component id="330cd" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="330cd" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -145,7 +139,7 @@
               <text value="Filename"/>
             </properties>
           </component>
-          <component id="98350" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="98350" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="7" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -153,12 +147,33 @@
               <text value="Directory (default is install directory)"/>
             </properties>
           </component>
-          <component id="7dba" class="com.imagegenerator.gui.MyButton" binding="generateImageFileButton">
+          <component id="7dba" class="com.imagegenerator.gui.mycomponents.MyButton" binding="generateImageFileButton">
             <constraints>
               <grid row="5" column="13" row-span="1" col-span="7" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Generate Image(s)"/>
+            </properties>
+          </component>
+          <component id="eb14d" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="directoryTF">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="12" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="25"/>
+                <preferred-size width="-1" height="25"/>
+                <maximum-size width="-1" height="25"/>
+              </grid>
+            </constraints>
+            <properties>
+              <alignmentX value="0.0"/>
+              <alignmentY value="0.0"/>
+              <focusTraversalPolicyProvider value="false"/>
+              <focusable value="true"/>
+              <font name="Calibri" size="12"/>
+              <horizontalAlignment value="2"/>
+              <inheritsPopupMenu value="false"/>
+              <margin top="2" left="5" bottom="2" right="5"/>
+              <name value="FileName"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
@@ -205,7 +220,7 @@
               </grid>
             </constraints>
           </vspacer>
-          <component id="f32" class="com.imagegenerator.gui.MyTextField" binding="textFontSizeTF">
+          <component id="f32" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="textFontSizeTF">
             <constraints>
               <grid row="3" column="4" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
@@ -216,10 +231,10 @@
             <properties>
               <horizontalAlignment value="0"/>
               <name value="Font Size"/>
-              <text value="28"/>
+              <text value="32"/>
             </properties>
           </component>
-          <component id="1e1e" class="com.imagegenerator.gui.MyTextField" binding="textColorTF">
+          <component id="1e1e" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="textColorTF">
             <constraints>
               <grid row="4" column="3" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="100" height="25"/>
@@ -242,7 +257,7 @@
               </grid>
             </constraints>
           </hspacer>
-          <component id="5a82d" class="com.imagegenerator.gui.MyTextField" binding="textFontTF">
+          <component id="5a82d" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="textFontTF">
             <constraints>
               <grid row="7" column="1" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
@@ -258,7 +273,7 @@
               <text value="Courier New"/>
             </properties>
           </component>
-          <component id="8e7d9" class="com.imagegenerator.gui.MyTextField" binding="textContentTF" custom-create="true">
+          <component id="8e7d9" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="textContentTF" custom-create="true">
             <constraints>
               <grid row="10" column="1" row-span="1" col-span="5" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="-1" height="25"/>
@@ -306,7 +321,7 @@
               </grid>
             </constraints>
           </hspacer>
-          <component id="8d681" class="com.imagegenerator.gui.MyTextField" binding="iterationsTF">
+          <component id="8d681" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="iterationsTF">
             <constraints>
               <grid row="13" column="4" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="40" height="25"/>
@@ -322,7 +337,7 @@
               <text value="1"/>
             </properties>
           </component>
-          <component id="46d01" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="46d01" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -330,7 +345,7 @@
               <text value="Size"/>
             </properties>
           </component>
-          <component id="8248f" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="8248f" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -338,7 +353,7 @@
               <text value="Color"/>
             </properties>
           </component>
-          <component id="903d7" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="903d7" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -346,7 +361,7 @@
               <text value="Font"/>
             </properties>
           </component>
-          <component id="32fd0" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="32fd0" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="12" column="4" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -354,7 +369,7 @@
               <text value="Iterations"/>
             </properties>
           </component>
-          <component id="5fb9d" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="5fb9d" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -362,7 +377,7 @@
               <text value="Content"/>
             </properties>
           </component>
-          <component id="ac5b8" class="com.imagegenerator.gui.MySwitch" binding="textCheckBox">
+          <component id="ac5b8" class="com.imagegenerator.gui.mycomponents.MySwitch" binding="textCheckBox">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -378,7 +393,7 @@
               <text value="draw text"/>
             </properties>
           </component>
-          <component id="ba5e5" class="com.imagegenerator.gui.MyCheckBox" binding="iterativeCheckBox">
+          <component id="ba5e5" class="com.imagegenerator.gui.mycomponents.MyCheckBox" binding="iterativeCheckBox">
             <constraints>
               <grid row="13" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -430,7 +445,7 @@
               </grid>
             </constraints>
           </vspacer>
-          <component id="2ab54" class="com.imagegenerator.gui.MyTextFieldLine" binding="imageWidthTF">
+          <component id="2ab54" class="com.imagegenerator.gui.mycomponents.MyTextFieldLine" binding="imageWidthTF">
             <constraints>
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="50" height="-1"/>
@@ -460,7 +475,7 @@
               <text value="Gradients (top + bot &lt; 0.9)"/>
             </properties>
           </component>
-          <component id="39d62" class="com.imagegenerator.gui.MyTextFieldLine" binding="topGradientTF">
+          <component id="39d62" class="com.imagegenerator.gui.mycomponents.MyTextFieldLine" binding="topGradientTF">
             <constraints>
               <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="50" height="-1"/>
@@ -482,7 +497,7 @@
               <text value="Dimensions(pixels)"/>
             </properties>
           </component>
-          <component id="64a3a" class="com.imagegenerator.gui.MyTextField" binding="gradientColorTF">
+          <component id="64a3a" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="gradientColorTF">
             <constraints>
               <grid row="9" column="3" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="100" height="25"/>
@@ -522,7 +537,7 @@
               </grid>
             </constraints>
           </hspacer>
-          <component id="2d4fe" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="2d4fe" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -531,7 +546,7 @@
               <text value="W"/>
             </properties>
           </component>
-          <component id="72bcd" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="72bcd" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -540,7 +555,7 @@
               <text value="Top"/>
             </properties>
           </component>
-          <component id="50c58" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="50c58" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="8" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -548,7 +563,7 @@
               <text value="Main"/>
             </properties>
           </component>
-          <component id="7b309" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="7b309" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -556,7 +571,7 @@
               <text value="Gradient"/>
             </properties>
           </component>
-          <component id="3950d" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="3950d" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -564,7 +579,7 @@
               <text value="H"/>
             </properties>
           </component>
-          <component id="1f341" class="com.imagegenerator.gui.MyTextFieldLine" binding="imageHeightTF">
+          <component id="1f341" class="com.imagegenerator.gui.mycomponents.MyTextFieldLine" binding="imageHeightTF">
             <constraints>
               <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="50" height="-1"/>
@@ -576,7 +591,7 @@
               <text value="200"/>
             </properties>
           </component>
-          <component id="6b077" class="com.imagegenerator.gui.MyFieldLabel">
+          <component id="6b077" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
               <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -584,7 +599,7 @@
               <text value="Bot"/>
             </properties>
           </component>
-          <component id="8dc09" class="com.imagegenerator.gui.MyTextFieldLine" binding="botGradientTF">
+          <component id="8dc09" class="com.imagegenerator.gui.mycomponents.MyTextFieldLine" binding="botGradientTF">
             <constraints>
               <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="50" height="-1"/>
@@ -596,7 +611,7 @@
               <text value="0.3"/>
             </properties>
           </component>
-          <component id="8c513" class="com.imagegenerator.gui.MyTextField" binding="mainColorTF">
+          <component id="8c513" class="com.imagegenerator.gui.mycomponents.MyTextField" binding="mainColorTF">
             <constraints>
               <grid row="8" column="3" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="100" height="25"/>
@@ -645,7 +660,7 @@
           </grid>
         </constraints>
       </hspacer>
-      <component id="443bd" class="com.imagegenerator.gui.PreviewPanel" binding="imagePreviewPanel">
+      <component id="443bd" class="com.imagegenerator.gui.mycomponents.PreviewPanel" binding="imagePreviewPanel">
         <constraints>
           <grid row="1" column="10" row-span="15" col-span="26" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>

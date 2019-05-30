@@ -1,4 +1,4 @@
-package com.imagegenerator.gui;
+package com.imagegenerator.gui.mycomponents;
 
 import java.awt.*;
 

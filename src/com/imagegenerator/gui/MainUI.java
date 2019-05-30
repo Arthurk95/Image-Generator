@@ -1,6 +1,9 @@
 package com.imagegenerator.gui;
 
 import com.imagegenerator.ImageGenerator;
+import com.imagegenerator.gui.mycomponents.MyConsoleField;
+import com.imagegenerator.gui.mycomponents.MyTextField;
+import com.imagegenerator.gui.mycomponents.PreviewPanel;
 
 import javax.swing.*;
 import java.awt.*;

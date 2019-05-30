@@ -1,4 +1,4 @@
-package com.imagegenerator.gui;
+package com.imagegenerator.gui.mycomponents;
 
 import com.imagegenerator.ImageGenerator;
 import com.imagegenerator.Utility;

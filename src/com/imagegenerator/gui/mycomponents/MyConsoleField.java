@@ -1,4 +1,4 @@
-package com.imagegenerator.gui;
+package com.imagegenerator.gui.mycomponents;
 
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ import java.awt.*;
  *
  * @author  Arthur Kharit
  */
-class MyConsoleField{
+public class MyConsoleField{
     private static final Color TEXT_COLOR = new Color(180,180,180);
     private final Color FILENAME_COLOR = new Color(70,160,160);
     private final Color DIRECTORY_COLOR = new Color(200,200,120);
