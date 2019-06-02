@@ -268,7 +268,6 @@ public class MainUI extends JFrame{
 
     public void drawPreview(){
         getValues();
-        consoleOutput.resetConsole();
         repaintPanels();
         if (iterativeCheckBox.isSelected())
             textContent = textContent + " 1";

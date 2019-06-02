@@ -103,8 +103,4 @@ public class MyConsoleField{
         pane.setCharacterAttributes(aset, false);
         pane.replaceSelection(msg);
     }
-
-    public void resetConsole(){
-        pane.setText("");
-    }
 }
