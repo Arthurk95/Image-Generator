@@ -15,7 +15,12 @@ public class Utility {
     public final static Color TF_DISABLED_FONT_COLOR = new Color(70,70,70);
     public final static Color TF_SELECTED_BORDER_COLOR = new Color(70,100,140);
     public final static Color RB_MAIN_COLOR = new Color(200,200,200);
+    public final static Color BUTTON_BG_COLOR = new Color(80,80,80);
+    public final static Color BUTTON_FONT_COLOR = new Color(200,200,200);
+    public final static Color BUTTON_BORDER_COLOR = new Color(100,100,100);
+    public final static Color BUTTON_BG_HOVER_COLOR = new Color(50,80,120);
     public final static Font MAIN_FONT = new Font("Calibri", Font.PLAIN,12);
+    public final static Font BUTTON_FONT = new Font("Calibri", Font.PLAIN, 11);
     public final static Font TF_FONT = new Font("Courier New", Font.PLAIN,11);
     public final static Font TF_HINT_FONT = new Font("Courier new", Font.ITALIC, 11);
 }
