@@ -109,7 +109,9 @@ public class MainUI extends JFrame{
                         String tempText = textContent;
                         String tempFileName = fileName;
                         for (int i = 1; i <= iterations; i++) {
-                            textContent = textContent + " " + i;
+                            if(textContent.length() == 0)
+                                textContent = Integer.toString(i);
+                            else textContent = textContent + " " + i;
                             fileName = fileName + i;
                             createImageFile();
                             textContent = tempText;
@@ -281,8 +283,11 @@ public class MainUI extends JFrame{
     public void drawPreview(){
         getValues();
         repaintPanels();
-        if (iterativeCheckBox.isSelected())
-            textContent = textContent + " 1";
+        if (iterativeCheckBox.isSelected()){
+            if(textContent.length() == 0)
+                textContent = "1";
+            else textContent = textContent + " 1";
+        }
         if(!canGenerate){
             imagePreviewPanel.drawPreview(ig, canGenerate);
             canGenerate = true;

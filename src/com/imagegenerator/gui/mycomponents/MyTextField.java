@@ -22,6 +22,12 @@ public class MyTextField extends JTextField{
         addFocusListeners();
     }
 
+    public String getText(){
+        if (super.getText().equals(hint))
+            return "";
+        else return super.getText();
+    }
+
     public MyTextField(String hint){
         super(hint);
         this.hint = hint;
