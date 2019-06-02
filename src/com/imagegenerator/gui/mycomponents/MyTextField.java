@@ -11,7 +11,7 @@ public class MyTextField extends JTextField{
 
     private Color currentFGColor = Utility.TF_FONT_COLOR;
     private Color currentColor = Utility.TF_BG_COLOR;
-    private Color currentBorderColor = Utility.BORDER_COLOR;
+    private Color currentBorderColor = Utility.TF_BORDER_COLOR;
     private boolean showingHint = false;
     private String hint;
 
@@ -86,7 +86,7 @@ public class MyTextField extends JTextField{
     }
 
     public void normalBorder(){
-        currentBorderColor = Utility.BORDER_COLOR;
+        currentBorderColor = Utility.TF_BORDER_COLOR;
     }
 
     private void addFocusListeners(){
@@ -104,7 +104,7 @@ public class MyTextField extends JTextField{
 
             @Override
             public void focusLost(FocusEvent e) {
-                currentBorderColor = Utility.BORDER_COLOR;
+                currentBorderColor = Utility.TF_BORDER_COLOR;
                 if ((getText().equals("") || getText().equals(hint)) && (hint != null)) {
                     showingHint = true;
                     showingHint();

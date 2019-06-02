@@ -25,6 +25,7 @@ public class MyConsoleField{
     }
 
     public StyledDocument getStyledDoc(){
+        pane.setCaretPosition(pane.getDocument().getLength());
         return pane.getStyledDocument();
     }
 
@@ -102,5 +103,7 @@ public class MyConsoleField{
         pane.setCaretPosition(len);
         pane.setCharacterAttributes(aset, false);
         pane.replaceSelection(msg);
+
+        pane.setCaretPosition(pane.getDocument().getLength());
     }
 }

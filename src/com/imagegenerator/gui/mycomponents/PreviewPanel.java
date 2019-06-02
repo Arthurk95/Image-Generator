@@ -3,7 +3,6 @@ package com.imagegenerator.gui.mycomponents;
 import com.imagegenerator.ImageGenerator;
 import com.imagegenerator.Utility;
 
-import javax.rmi.CORBA.Util;
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,7 +18,7 @@ public class PreviewPanel extends JPanel{
 
     public void drawPreviewBG(Graphics g){
         clearPreview(g);
-        g.setColor(Utility.BORDER_COLOR);
+        g.setColor(Utility.TF_BORDER_COLOR);
         // top left to bottom right
         g.drawLine(previewStartX, previewStartY, previewWidth + previewStartX, previewHeight + previewStartY);
         // bottom left to top right
@@ -41,7 +40,7 @@ public class PreviewPanel extends JPanel{
 
     protected void paintBorder(Graphics g){
         if(!canGenerate) {
-            g.setColor(Utility.BORDER_COLOR);
+            g.setColor(Utility.TF_BORDER_COLOR);
             g.drawRect(previewStartX, previewStartY, previewWidth - 1, previewHeight);
         }
     }
@@ -114,7 +113,7 @@ public class PreviewPanel extends JPanel{
         g.fillRect(x-(stringWidth/2), y-stringHeight, stringWidth*2, stringHeight*3);
         y = y + metrics.getAscent();
         g.setFont(previewFont);
-        g.setColor(Utility.BORDER_COLOR);
+        g.setColor(Utility.TF_BORDER_COLOR);
         g.drawString("Preview", x, y);
     }
 }

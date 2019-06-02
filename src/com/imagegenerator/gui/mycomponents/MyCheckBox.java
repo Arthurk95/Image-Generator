@@ -21,7 +21,7 @@ public class MyCheckBox extends JCheckBox {
                 currentBG = Utility.TF_SELECTED_BORDER_COLOR;
             } else {
                 currentBG = Utility.TF_BG_COLOR;
-                currentBorder = Utility.BORDER_COLOR;
+                currentBorder = Utility.TF_BORDER_COLOR;
             }
         }
         graph2D.setRenderingHint(
@@ -46,13 +46,13 @@ public class MyCheckBox extends JCheckBox {
         super.setEnabled(enabled);
         if(enabled){
             currentBG = Utility.TF_BG_COLOR;
-            currentBorder = Utility.BORDER_COLOR;
+            currentBorder = Utility.TF_BORDER_COLOR;
             centerColor = Color.WHITE;
             fontColor = Utility.TF_FONT_COLOR;
         }
         else{
             currentBG = Utility.TF_DISABLED_BG_COLOR;
-            currentBorder = Utility.BORDER_COLOR;
+            currentBorder = Utility.TF_BORDER_COLOR;
             centerColor = Color.GRAY;
             fontColor = Color.GRAY;
         }
