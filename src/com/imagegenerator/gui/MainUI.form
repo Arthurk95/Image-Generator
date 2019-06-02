@@ -627,7 +627,7 @@
           </component>
         </children>
       </grid>
-      <scrollpane id="4cee">
+      <scrollpane id="4cee" binding="consoleScrollPane">
         <constraints>
           <grid row="25" column="10" row-span="9" col-span="26" vsize-policy="0" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="160"/>

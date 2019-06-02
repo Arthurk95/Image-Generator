@@ -7,7 +7,7 @@ public class Utility {
     public final static int MIN_DIMENSION_SIZE = 20;
     public final static int MAX_ITERATIONS = 100;
     public final static Color MAIN_BG_COLOR = new Color(69,77,81);
-    public final static Color BORDER_COLOR = new Color(100,100,100);
+    public final static Color TF_BORDER_COLOR = new Color(100,100,100);
     public final static Color TF_BG_COLOR = new Color(58,58,58);
     public final static Color TF_FONT_COLOR = new Color(207,207,207);
     public final static Color TF_HINT_COLOR = new Color(150,150,150);

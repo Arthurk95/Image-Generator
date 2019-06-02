@@ -5,6 +5,11 @@ import com.imagegenerator.Utility;
 import javax.swing.*;
 import java.awt.*;
 
+/* This is a switch, similar to that of an iPhone on/off
+ * switch with a "level" on the left/right depending on
+ * the state of the switch.
+ * It draws with a green background when the switch is
+ * selected (on) and gray when it is not (off). */
 public class MySwitch extends JRadioButton {
     private int width = 40;
     private int height = 20;
@@ -26,6 +31,8 @@ public class MySwitch extends JRadioButton {
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         circleGradient = new GradientPaint(0, 0, Color.LIGHT_GRAY, 0, height, Color.GRAY);
+
+        // green background if selected, gray if not
         if (this.isSelected())
             gradient = new GradientPaint(0, 0, darkerGreen, 0, height, green);
         else
@@ -37,6 +44,8 @@ public class MySwitch extends JRadioButton {
         g2.setColor(Utility.TF_BG_COLOR);
         g2.drawRoundRect(0,0, width, height, height,height);
         g2.setPaint(circleGradient);
+
+        // Draws circle on right if selected, left if not
         if(this.isSelected()){
             g2.fillOval(width-height, 0, height,height);
             g2.setColor(Utility.TF_BG_COLOR);
@@ -44,7 +53,7 @@ public class MySwitch extends JRadioButton {
         }
         else {
             g2.fillOval(0, 0, height,height);
-            g2.setColor(Utility.BORDER_COLOR);
+            g2.setColor(Utility.TF_BORDER_COLOR);
             g2.drawOval(0, 0, height,height);
         }
 

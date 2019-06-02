@@ -38,6 +38,7 @@ public class MainUI extends JFrame{
     private JPanel dimensionsPanel;
     private PreviewPanel imagePreviewPanel;
     private JTextField linkField;
+    private JScrollPane consoleScrollPane;
     private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
     private int width, height, fontSize, iterations;
@@ -64,6 +65,16 @@ public class MainUI extends JFrame{
                 drawPreview();
             }
         });
+
+        /* Automatically scrolls the JTextPane down when it gets too long */
+        final int[] verticalScrollBarMaximumValue = {consoleScrollPane.getVerticalScrollBar().getMaximum()};
+        consoleScrollPane.getVerticalScrollBar().addAdjustmentListener(
+                e -> {
+                    if ((verticalScrollBarMaximumValue[0] - e.getAdjustable().getMaximum()) == 0)
+                        return;
+                    e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+                    verticalScrollBarMaximumValue[0] = consoleScrollPane.getVerticalScrollBar().getMaximum();
+                });
 
         /* Check box checked/unchecked */
         iterativeCheckBox.addActionListener(new ActionListener() {
@@ -209,6 +220,7 @@ public class MainUI extends JFrame{
         canGenerate = false;
         field.redBorder();
         consolePane.setStyledDocument(consoleOutput.getStyledDoc());
+        consolePane.setCaretPosition(consolePane.getDocument().getLength());
     }
 
     /* Converts any MyTextField related to the Text generation to its appropriate type */
