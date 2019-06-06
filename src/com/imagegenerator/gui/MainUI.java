@@ -44,7 +44,7 @@ public class MainUI extends JFrame{
     private MyCheckBox italicsCheckBox;
     private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
-    private int width, height, fontSize, iterations;
+    private int width, height, fontSize, iterations,gradientTopEnd, gradientBotStart, textX;
     private double topGradient, bottomGradient, ratio;
     private String directory, textContent, extension, fileName;
     private boolean canGenerate = true;
@@ -171,14 +171,14 @@ public class MainUI extends JFrame{
     /* Initializes the generator by passing it all of the values.
      * Generates the image */
     private void generateImage(){
-        ig = new ImageGenerator(width, height, topGradient, bottomGradient);
+        ig = new ImageGenerator(width, height, gradientTopEnd, gradientBotStart);
         ig.setColors(mainColor, gradientColor);
         if(textCheckBox.isSelected()){
             int bold = boldCheckBox.isSelected() ? Font.BOLD : 0;
             int italics = italicsCheckBox.isSelected() ? Font.ITALIC : 0;
             int fontStyle = bold + italics;
             Font f = new Font(textFontTF.getText(), fontStyle, fontSize);
-            ig.setText(textContent, textColor, f);
+            ig.setText(textContent, textColor, f, textX);
         }
         ig.generateImage();
     }
@@ -211,17 +211,19 @@ public class MainUI extends JFrame{
             invalidField(imageHeightTF);
         }
 
+        /* Get end Y of the top gradient */
         try {
             topGradient = Double.parseDouble(topGradientTF.getText());
-            topGradient = (double) height * topGradient;
+            gradientTopEnd = (int) (height * topGradient);
             topGradientTF.normalBorder();
         } catch(Exception e){
             invalidField(topGradientTF);
         }
 
+        /* Get starting Y of bottom gradient */
         try {
             bottomGradient = Double.parseDouble(botGradientTF.getText());
-            bottomGradient = (double) height * (1 - bottomGradient);
+            gradientBotStart = (int) (height * (1 - bottomGradient));
             botGradientTF.normalBorder();
         } catch(Exception e){
             invalidField(botGradientTF);

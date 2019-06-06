@@ -20,22 +20,24 @@ public class ImageGenerator {
     private Color mainColor, gradientColor, textColor;
     private String text;
     private Font textFont;
+    private int textX;
     /* Gradient amount for top and bottom portions of image
     * value between 0.0 and 0.5 */
-    private double gradientTop, gradientBot;
+    private int gradientTopEnd, gradientBotStart;
     private BufferedImage bf;
 
-    public ImageGenerator(int w, int h, double gT, double gB){
-        imageWidth = w; imageHeight = h; gradientTop = gT; gradientBot = gB;
+    public ImageGenerator(int w, int h, int gT, int gB){
+        imageWidth = w; imageHeight = h; gradientTopEnd = gT; gradientBotStart = gB;
     }
 
     public void setColors(Color m, Color g){
         mainColor = m; gradientColor = g;
     }
 
-    public void setText(String t, Color c, Font f){
+    public void setText(String t, Color c, Font f, int x){
         text = t; textColor = c;
         textFont = f;
+        textX = x;
     }
 
     public int getWidth(){ return imageWidth; }
@@ -83,21 +85,21 @@ public class ImageGenerator {
         /* Top portion of image gradient
         * (0,0) to (0,gradientTop) */
         GradientPaint topGradient = new GradientPaint(
-                0, 0, gradientColor, 0, (int)gradientTop, mainColor);
+                0, 0, gradientColor, 0, gradientTopEnd, mainColor);
         graph2D.setPaint(topGradient);
-        graph2D.fill(new Rectangle2D.Double(0, 0, imageWidth, (int)gradientTop));
+        graph2D.fill(new Rectangle2D.Double(0, 0, imageWidth, gradientTopEnd));
 
         /* Middle of image
         * (0,gradientTop) to (imageWidth,gradientBot)*/
         graph2D.setPaint(mainColor);
-        graph2D.fill(new Rectangle2D.Double(0, (int)gradientTop, imageWidth, (int)gradientBot));
+        graph2D.fill(new Rectangle2D.Double(0, gradientTopEnd, imageWidth, gradientBotStart));
 
         /* Bottom portion of image gradient
         * (0,gradientBot) to (0,imageHeight) */
         GradientPaint bottomGradient = new GradientPaint(
-                0, (int)gradientBot, mainColor, 0, imageHeight, gradientColor);
+                0, gradientBotStart, mainColor, 0, imageHeight, gradientColor);
         graph2D.setPaint(bottomGradient);
-        graph2D.fill(new Rectangle2D.Double(0, (int)gradientBot, imageWidth, imageHeight));
+        graph2D.fill(new Rectangle2D.Double(0, gradientBotStart, imageWidth, imageHeight));
 
         // generate text if text valid
         if(text != null && (text.length() > 0)) {
@@ -116,11 +118,13 @@ public class ImageGenerator {
     private void centerString(Graphics2D g) {
         FontMetrics metrics = g.getFontMetrics(textFont);
         // Determine the X coordinate for the text
-        int x = (imageWidth - metrics.stringWidth(text))/2;
+        if(textX == -1) {
+            textX = (imageWidth - metrics.stringWidth(text)) / 2;
+        }
         // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
         int y = ((imageHeight - metrics.getHeight())/2) + metrics.getAscent();
         g.setFont(textFont);
         g.setColor(textColor);
-        g.drawString(text, x, y);
+        g.drawString(text, textX, y);
     }
 }
