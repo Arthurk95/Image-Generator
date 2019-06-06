@@ -80,21 +80,38 @@ public class PreviewPanel extends JPanel{
         int maxHeight = this.getHeight()-(this.getHeight()/20);
         double ratio;
         if (previewWidth > maxWidth){
-            ratio = (double)previewWidth/maxWidth;
+            ratio = (double)(previewWidth/maxWidth);
             previewWidth = maxWidth;
             previewHeight = (int)(previewHeight/ratio);
             fitToPreview();
         }
         else if(previewHeight > maxHeight){
-            ratio = (double)previewHeight/maxHeight;
+            ratio = (double)(previewHeight/maxHeight);
             previewHeight = maxHeight;
             previewWidth = (int)(previewWidth/ratio);
             fitToPreview();
         }
+        else if((previewHeight < maxHeight) && (previewWidth < maxWidth))
+            scalePreviewUp(maxWidth, maxHeight);
+
         int centerWidthPreview = this.getWidth() / 2;
         int centerHeightPreview = this.getHeight() / 2;
         previewStartX = centerWidthPreview - (previewWidth / 2);
         previewStartY = centerHeightPreview - (previewHeight / 2);
+    }
+
+    private void scalePreviewUp(int maxWidth, int maxHeight){
+        double ratio;
+        if(previewWidth > previewHeight){
+            ratio = (double)(maxWidth/previewWidth);
+            previewWidth = maxWidth;
+            previewHeight = (int)(previewHeight*ratio);
+        }
+        else if(previewHeight > previewWidth){
+            ratio = (double)(maxHeight/previewHeight);
+            previewHeight = maxHeight;
+            previewWidth = (int)(previewWidth*ratio);
+        }
     }
 
     /* Resets the previewPanel container, removing any previously generated previews */
