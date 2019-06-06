@@ -4,6 +4,7 @@ import com.imagegenerator.gui.MainUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class StartProgram {
     private MainUI main;
@@ -18,6 +19,10 @@ public class StartProgram {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         main.drawPreview();
+        URL iconURL = getClass().getResource("icon.png");
+        // iconURL is null when not found
+        ImageIcon icon = new ImageIcon(iconURL);
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
     }
 
