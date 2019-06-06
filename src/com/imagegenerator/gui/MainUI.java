@@ -2,10 +2,7 @@ package com.imagegenerator.gui;
 
 import com.imagegenerator.ImageGenerator;
 import com.imagegenerator.Utility;
-import com.imagegenerator.gui.mycomponents.MyCheckBox;
-import com.imagegenerator.gui.mycomponents.MyConsoleField;
-import com.imagegenerator.gui.mycomponents.MyTextField;
-import com.imagegenerator.gui.mycomponents.PreviewPanel;
+import com.imagegenerator.gui.mycomponents.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +39,7 @@ public class MainUI extends JFrame{
     private JScrollPane consoleScrollPane;
     private MyCheckBox boldCheckBox;
     private MyCheckBox italicsCheckBox;
+    private MyTextFieldLine textXTF;
     private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
     private int width, height, fontSize, iterations,gradientTopEnd, gradientBotStart, textX;
@@ -59,9 +57,9 @@ public class MainUI extends JFrame{
         linkField.setBackground(null); // this is the same as a JLabel
         linkField.setBorder(null); // remove the border
 
-        iterativeCheckBox = new MyCheckBox("iterative", 20);
-        boldCheckBox = new MyCheckBox("bold", 12);
-        italicsCheckBox = new MyCheckBox("italics", 12);
+        iterativeCheckBox = new MyCheckBox("iterative", 20, MyCheckBox.TEXT_RIGHT);
+        boldCheckBox = new MyCheckBox("bold", 12, MyCheckBox.TEXT_LEFT);
+        italicsCheckBox = new MyCheckBox("italics", 12, MyCheckBox.TEXT_LEFT);
     }
 
     public MainUI(){
@@ -119,12 +117,14 @@ public class MainUI extends JFrame{
             public void actionPerformed(ActionEvent event){
                 getValues();
                 repaintPanels();
-                // creates a new directory
+
+                /* Creates new directory at install location or at user-specified directory */
                 if(directory.equals("")){}
                 else createDirectory();
                 if(!canGenerate){
                     canGenerate = true;
                 }
+
                 else {
                     /* draw and write multiple images */
                     if (textCheckBox.isSelected() && iterativeCheckBox.isSelected()) {
@@ -144,7 +144,6 @@ public class MainUI extends JFrame{
                         createImageFile();
                     }
                 }
-
             }
         });
         flickTextEnable();
@@ -183,10 +182,10 @@ public class MainUI extends JFrame{
         ig.generateImage();
     }
 
-
-
     /* Converts the content of each MyTextField to its appropriate type */
     private void getValues(){
+
+        // get image width
         try {
             width = Integer.parseInt(imageWidthTF.getText());
             if(width > Utility.MAX_DIMENSION_SIZE)
@@ -199,6 +198,7 @@ public class MainUI extends JFrame{
             invalidField(imageWidthTF);
         }
 
+        // get image height
         try {
             height = Integer.parseInt(imageHeightTF.getText());
             if (height > Utility.MAX_DIMENSION_SIZE)
@@ -229,6 +229,7 @@ public class MainUI extends JFrame{
             invalidField(botGradientTF);
         }
 
+        /* Make sure that both gradients add up to less than 0.9 */
         try{
             if((Double.parseDouble(topGradientTF.getText()) + Double.parseDouble(botGradientTF.getText())) > 0.9){
                 consoleOutput.appendErrorMessage("The gradients must be less than 0.9 when added together.");
@@ -238,6 +239,7 @@ public class MainUI extends JFrame{
                 consolePane.setStyledDocument(consoleOutput.getStyledDoc());
             }
         } catch(Exception e){}
+
         mainColor = getColor(mainColorTF);
         gradientColor = getColor(gradientColorTF);
         getDirectoryValues();
@@ -255,6 +257,8 @@ public class MainUI extends JFrame{
 
     /* Converts any MyTextField related to the Text generation to its appropriate type */
     private void getTextValues(){
+
+        // get text font size
         String text = textFontSizeTF.getText();
         try{
             fontSize = Integer.parseInt(text);
@@ -264,6 +268,7 @@ public class MainUI extends JFrame{
             fontSize = 18;
         }
 
+        // get text content
         text = iterationsTF.getText();
         try{
             iterations = Integer.parseInt(text);
@@ -272,6 +277,21 @@ public class MainUI extends JFrame{
             iterationsTF.normalBorder();
         } catch(Exception e){
             invalidField(iterationsTF);
+        }
+
+        // get text starting X
+        text = textXTF.getText();
+        if(text.length() == 0)
+            textX = -1;
+        else {
+            try {
+                textX = Integer.parseInt(text);
+                if(textX > width)
+                    textX = width;
+                textXTF.normalBorder();
+            } catch (Exception e) {
+                invalidField(textXTF);
+            }
         }
         textColor = getColor(textColorTF);
         textContent = textContentTF.getText();

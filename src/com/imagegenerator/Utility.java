@@ -19,6 +19,7 @@ public class Utility {
     public final static Color BUTTON_FONT_COLOR = new Color(200,200,200);
     public final static Color BUTTON_BORDER_COLOR = new Color(100,100,100);
     public final static Color BUTTON_BG_HOVER_COLOR = new Color(50,80,120);
+    public final static Color MAIN_LABEL_COLOR = new Color(212,212,212);
     public final static Font MAIN_FONT = new Font("Calibri", Font.PLAIN,12);
     public final static Font BUTTON_FONT = new Font("Calibri", Font.PLAIN, 11);
     public final static Font TF_FONT = new Font("Courier New", Font.PLAIN,11);

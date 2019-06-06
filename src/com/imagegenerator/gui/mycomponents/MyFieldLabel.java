@@ -9,6 +9,6 @@ public class MyFieldLabel extends JLabel {
     public MyFieldLabel(){
         this.setFont(Utility.MAIN_FONT);
         this.setOpaque(false);
-        this.setForeground(new Color(212,212,212));
+        this.setForeground(Utility.MAIN_LABEL_COLOR);
     }
 }
