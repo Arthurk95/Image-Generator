@@ -98,6 +98,21 @@ public class MainUI extends JFrame{
             }
         });
 
+        /* Added these two actionlisteners so that preview is automatically updated
+         * when checkbox is selected/de-selected */
+        boldCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                drawPreview();
+            }
+        });
+        italicsCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                drawPreview();
+            }
+        });
+
         /* Saves the image to a file */
         generateImageFileButton.addActionListener(new ActionListener() {
             @Override
