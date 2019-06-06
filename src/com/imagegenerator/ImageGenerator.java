@@ -33,9 +33,9 @@ public class ImageGenerator {
         mainColor = m; gradientColor = g;
     }
 
-    public void setText(String t, Color c, int size, String font){
+    public void setText(String t, Color c, Font f){
         text = t; textColor = c;
-        textFont = new Font(font, Font.PLAIN, size);
+        textFont = f;
     }
 
     public int getWidth(){ return imageWidth; }
