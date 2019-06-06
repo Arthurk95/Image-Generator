@@ -2,6 +2,7 @@ package com.imagegenerator.gui;
 
 import com.imagegenerator.ImageGenerator;
 import com.imagegenerator.Utility;
+import com.imagegenerator.gui.mycomponents.MyCheckBox;
 import com.imagegenerator.gui.mycomponents.MyConsoleField;
 import com.imagegenerator.gui.mycomponents.MyTextField;
 import com.imagegenerator.gui.mycomponents.PreviewPanel;
@@ -28,7 +29,7 @@ public class MainUI extends JFrame{
     private MyTextField textFontSizeTF;
     private JTextField directoryTF;
     private MyTextField textFontTF;
-    private JCheckBox iterativeCheckBox;
+    private MyCheckBox iterativeCheckBox;
     private MyTextField iterationsTF;
     private JRadioButton textCheckBox;
     private JComboBox extensionDropDown;
@@ -39,6 +40,8 @@ public class MainUI extends JFrame{
     private PreviewPanel imagePreviewPanel;
     private JTextField linkField;
     private JScrollPane consoleScrollPane;
+    private MyCheckBox boldCheckBox;
+    private MyCheckBox italicsCheckBox;
     private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
     private int width, height, fontSize, iterations;
@@ -55,6 +58,10 @@ public class MainUI extends JFrame{
         linkField.setEditable(false); // as before
         linkField.setBackground(null); // this is the same as a JLabel
         linkField.setBorder(null); // remove the border
+
+        iterativeCheckBox = new MyCheckBox("iterative", 20);
+        boldCheckBox = new MyCheckBox("bold", 12);
+        italicsCheckBox = new MyCheckBox("italics", 12);
     }
 
     public MainUI(){
@@ -152,7 +159,11 @@ public class MainUI extends JFrame{
         ig = new ImageGenerator(width, height, topGradient, bottomGradient);
         ig.setColors(mainColor, gradientColor);
         if(textCheckBox.isSelected()){
-            ig.setText(textContent, textColor, fontSize, textFontTF.getText());
+            int bold = boldCheckBox.isSelected() ? Font.BOLD : 0;
+            int italics = italicsCheckBox.isSelected() ? Font.ITALIC : 0;
+            int fontStyle = bold + italics;
+            Font f = new Font(textFontTF.getText(), fontStyle, fontSize);
+            ig.setText(textContent, textColor, f);
         }
         ig.generateImage();
     }

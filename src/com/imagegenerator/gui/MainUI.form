@@ -355,7 +355,7 @@
           </component>
           <component id="903d7" class="com.imagegenerator.gui.mycomponents.MyFieldLabel">
             <constraints>
-              <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Font"/>
@@ -393,13 +393,25 @@
               <text value="draw text"/>
             </properties>
           </component>
-          <component id="ba5e5" class="com.imagegenerator.gui.mycomponents.MyCheckBox" binding="iterativeCheckBox">
+          <component id="ba5e5" class="com.imagegenerator.gui.mycomponents.MyCheckBox" binding="iterativeCheckBox" custom-create="true">
             <constraints>
               <grid row="13" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="iterative"/>
             </properties>
+          </component>
+          <component id="55e18" class="com.imagegenerator.gui.mycomponents.MyCheckBox" binding="boldCheckBox" custom-create="true">
+            <constraints>
+              <grid row="6" column="2" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="b8ca8" class="com.imagegenerator.gui.mycomponents.MyCheckBox" binding="italicsCheckBox" custom-create="true">
+            <constraints>
+              <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
           </component>
         </children>
       </grid>
