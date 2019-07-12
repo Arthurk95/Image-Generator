@@ -80,6 +80,19 @@ public class MyConsoleField{
         appendToPane(" failed to create. It either already exists or invalid name\n", ERROR_COLOR);
     }
 
+    public void appendSaveTemplate(String name, String path){
+        appendToPane("Template ", TEXT_COLOR);
+        appendToPane(name + " ", FILENAME_COLOR);
+        appendToPane("saved to ", TEXT_COLOR);
+        appendToPane(path + "\n", DIRECTORY_COLOR);
+    }
+
+    public void appendLoadTemplate(String name){
+        appendToPane("Template ", TEXT_COLOR);
+        appendToPane(name + " ", FILENAME_COLOR);
+        appendToPane("successfully loaded\n", TEXT_COLOR);
+    }
+
     /**
      * Appends the message to the JTextPane with the passed color
      *
@@ -96,7 +109,6 @@ public class MyConsoleField{
         aset = sc.addAttribute(aset,StyleConstants.FontSize, 10);
         aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Courier New");
         aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
 
 
         int len = pane.getDocument().getLength();
