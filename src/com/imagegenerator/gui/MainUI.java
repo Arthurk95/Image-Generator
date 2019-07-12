@@ -8,6 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Properties;
 
 public class MainUI extends JFrame{
 
@@ -40,12 +44,17 @@ public class MainUI extends JFrame{
     private MyCheckBox boldCheckBox;
     private MyCheckBox italicsCheckBox;
     private MyTextFieldLine textXTF;
+    private JComboBox templateDropDown;
+    private MyButton loadTemplateBtn;
+    private MyButton saveTemplateBtn;
+    private MyTextField templateNameTF;
     private MyConsoleField consoleOutput = new MyConsoleField();
     private ImageGenerator ig;
     private int width, height, fontSize, iterations,gradientTopEnd, gradientBotStart, textX;
     private double topGradient, bottomGradient, ratio;
     private String directory, textContent, extension, fileName;
     private boolean canGenerate = true;
+    private String templateDir = System.getProperty("user.dir") + "\\templates\\";
 
     private void createUIComponents(){
         textContentTF = new MyTextField("Enter Text Here");
@@ -63,6 +72,7 @@ public class MainUI extends JFrame{
     }
 
     public MainUI(){
+        createTemplateFolder();
         textCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event){
@@ -150,6 +160,8 @@ public class MainUI extends JFrame{
         styleConsole();
         iterationsTF.setDisabled();
         setListeners();
+        newPropertyTemplate("default.properties");
+        updateTemplateDropdown(new File(templateDir));
     }
 
     private void repaintPanels(){
@@ -247,7 +259,7 @@ public class MainUI extends JFrame{
             getTextValues();
     }
 
-    private void invalidField(MyTextField field){
+    private void invalidField(MyTextField field) {
         consoleOutput.appendErrorMessage("Field " + field.getName() + " invalid");
         canGenerate = false;
         field.redBorder();
@@ -328,6 +340,8 @@ public class MainUI extends JFrame{
         }
     }
 
+    /* Draws a preview of the image on the form.
+     * This is called every time any component is de-selected */
     public void drawPreview(){
         getValues();
         repaintPanels();
@@ -403,7 +417,7 @@ public class MainUI extends JFrame{
         }
     }
 
-    /**
+    /*
      * Enables/disables all components within a container.
      *
      * @param container     container whose components to enable/disable
@@ -435,4 +449,56 @@ public class MainUI extends JFrame{
         consolePane.setBackground(new Color(45,45,45));
         consolePane.setFont(new Font("Courier New", Font.PLAIN, 12));
     }
+
+    /* Creates a new property file in the templates folder of the installation directory.
+     * Stores the current values of every setting. */
+    private void newPropertyTemplate(String name){
+        try(OutputStream output = new FileOutputStream(templateDir + name)){
+            Properties prop = new Properties();
+            prop.setProperty("imageWidth", imageWidthTF.getText());
+            prop.setProperty("imageHeight", imageHeightTF.getText());
+            prop.setProperty("topGrad", topGradientTF.getText());
+            prop.setProperty("botGrad", botGradientTF.getText());
+            prop.setProperty("mainColor", mainColorTF.getText());
+            prop.setProperty("gradColor", gradientColorTF.getText());
+            if(textCheckBox.isSelected()){
+                prop.setProperty("textEnabled", "true");
+                prop.setProperty("fontSize", textFontSizeTF.getText());
+                prop.setProperty("textX", textXTF.getText());
+                prop.setProperty("textColor", textColorTF.getText());
+                prop.setProperty("textFont", textFontTF.getText());
+                prop.setProperty("textContent", textContentTF.getText());
+                if(iterativeCheckBox.isSelected()){
+                    prop.setProperty("iterative", "true");
+                    prop.setProperty("iterations", iterationsTF.getText());
+                }
+                else prop.setProperty("iterative", "false");
+            }
+            else{
+                prop.setProperty("textEnabled", "false");
+            }
+            prop.setProperty("fileName", fileNameTF.getText());
+            prop.setProperty("extension", (String)extensionDropDown.getSelectedItem());
+            prop.setProperty("directory", directoryTF.getText());
+
+            prop.store(output, null);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void updateTemplateDropdown(File folder){
+        for(File file : folder.listFiles()){
+            if(file.isDirectory())
+                updateTemplateDropdown(folder);
+            else templateDropDown.addItem(file.getName());
+        }
+    }
+
+    private void createTemplateFolder(){
+        File dir = new File(System.getProperty("user.dir") + "\\templates");
+        dir.mkdir();
+    }
+
 }
