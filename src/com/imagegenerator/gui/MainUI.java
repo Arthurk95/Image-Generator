@@ -191,7 +191,7 @@ public class MainUI extends JFrame{
         f = ig.writeFile(directory+fileName, extension);
         consoleOutput.appendCreateFile(f.getAbsolutePath().replace(
                 fileName+extension, ""),fileName+extension);
-        consolePane.setStyledDocument(consoleOutput.getStyledDoc());
+        updateConsole();
     }
 
     /* Initializes the generator by passing it all of the values.
@@ -373,6 +373,7 @@ public class MainUI extends JFrame{
             generateImage();
             imagePreviewPanel.drawPreview(ig, canGenerate);
         }
+        updateConsole();
     }
 
     /* Adds focus listeners to all components to draw
@@ -498,13 +499,15 @@ public class MainUI extends JFrame{
             prop.setProperty("extension", (String)extensionDropDown.getSelectedItem());
             prop.setProperty("directory", directoryTF.getText());
             prop.store(output, null);
+            updateTemplateDropdown(new File(templateDir));
+            String[] nameSplit = name.split("\\.");
+            templateDropDown.setSelectedItem(nameSplit[0]);
+            consoleOutput.appendSaveTemplate(name, templateDir);
         }
         catch(IOException e){
             e.printStackTrace();
         }
-        updateTemplateDropdown(new File(templateDir));
-        String[] nameSplit = name.split("\\.");
-        templateDropDown.setSelectedItem(name);
+
     }
 
     /* Updates the template dropdown to show all files within the Templates folder */
@@ -561,6 +564,7 @@ public class MainUI extends JFrame{
             fileNameTF.setText(prop.getProperty("fileName"));
             directoryTF.setText(prop.getProperty("directory"));
             extensionDropDown.setSelectedItem(prop.getProperty("extension"));
+            consoleOutput.appendLoadTemplate(name.split("\\.")[0]);
         }
         catch(IOException e){
             e.printStackTrace();
@@ -572,5 +576,9 @@ public class MainUI extends JFrame{
     private void createTemplateFolder(){
         File dir = new File(System.getProperty("user.dir") + "\\templates");
         dir.mkdir();
+    }
+
+    private void updateConsole(){
+        consolePane.setStyledDocument(consoleOutput.getStyledDoc());
     }
 }
