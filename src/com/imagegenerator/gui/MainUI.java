@@ -7,10 +7,7 @@ import com.imagegenerator.gui.mycomponents.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Properties;
 
 public class MainUI extends JFrame{
@@ -103,6 +100,24 @@ public class MainUI extends JFrame{
                     iterationsTF.setEnabled(false);
                     drawPreview();
                 }
+            }
+        });
+
+        /* Loads the selected template */
+        loadTemplateBtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                loadTemplate((String)templateDropDown.getSelectedItem() + ".properties");
+            }
+        });
+
+        /* Saves a template with the name provided */
+        saveTemplateBtn.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                if(templateNameTF.getText().length() < 1){
+                    newPropertyTemplate((String)templateDropDown.getSelectedItem() + ".properties");
+                    templateNameTF.setText("default");
+                }
+                else newPropertyTemplate(templateNameTF.getText() + ".properties");
             }
         });
 
@@ -468,6 +483,8 @@ public class MainUI extends JFrame{
                 prop.setProperty("textColor", textColorTF.getText());
                 prop.setProperty("textFont", textFontTF.getText());
                 prop.setProperty("textContent", textContentTF.getText());
+                prop.setProperty("italics", Boolean.toString(italicsCheckBox.isSelected()));
+                prop.setProperty("bold", Boolean.toString(boldCheckBox.isSelected()));
                 if(iterativeCheckBox.isSelected()){
                     prop.setProperty("iterative", "true");
                     prop.setProperty("iterations", iterationsTF.getText());
@@ -480,25 +497,80 @@ public class MainUI extends JFrame{
             prop.setProperty("fileName", fileNameTF.getText());
             prop.setProperty("extension", (String)extensionDropDown.getSelectedItem());
             prop.setProperty("directory", directoryTF.getText());
-
             prop.store(output, null);
         }
         catch(IOException e){
             e.printStackTrace();
         }
+        updateTemplateDropdown(new File(templateDir));
+        String[] nameSplit = name.split("\\.");
+        templateDropDown.setSelectedItem(name);
     }
 
+    /* Updates the template dropdown to show all files within the Templates folder */
     private void updateTemplateDropdown(File folder){
+        templateDropDown.removeAllItems();
         for(File file : folder.listFiles()){
             if(file.isDirectory())
                 updateTemplateDropdown(folder);
-            else templateDropDown.addItem(file.getName());
+            else {
+                String[] fileNameSplit = file.getName().split("\\.");
+                templateDropDown.addItem(fileNameSplit[0]);
+            }
         }
     }
 
+    /* Loads the given template file from the Templates folder and updates
+     * each field in the form with the template values. */
+    private void loadTemplate(String name){
+        try(InputStream inputFile = new FileInputStream(templateDir + name)){
+            Properties prop = new Properties();
+            prop.load(inputFile);
+            imageWidthTF.setText(prop.getProperty("imageWidth"));
+            imageHeightTF.setText(prop.getProperty("imageHeight"));
+            topGradientTF.setText(prop.getProperty("topGrad"));
+            botGradientTF.setText(prop.getProperty("botGrad"));
+            mainColorTF.setText(prop.getProperty("mainColor"));
+            gradientColorTF.setText(prop.getProperty("gradColor"));
+            if(prop.getProperty("textEnabled").equals("true")){
+                if(!textCheckBox.isSelected()) {
+                    textCheckBox.setSelected(true);
+                    flickTextEnable();
+                }
+                textFontSizeTF.setText(prop.getProperty("fontSize"));
+                textXTF.setText(prop.getProperty("textX"));
+                textColorTF.setText(prop.getProperty("textColor"));
+                textFontTF.setText(prop.getProperty("textFont"));
+                textContentTF.setText(prop.getProperty("textContent"));
+                boldCheckBox.setSelected(Boolean.parseBoolean(prop.getProperty("bold")));
+                italicsCheckBox.setSelected(Boolean.parseBoolean(prop.getProperty("italics")));
+                if(prop.getProperty("iterative").equals("true")){
+                    iterativeCheckBox.setSelected(true);
+                    iterationsTF.setEnabled(true);
+                    iterationsTF.setText(prop.getProperty("iterations"));
+                }
+                else {
+                    iterationsTF.setEnabled(false);
+                    iterativeCheckBox.setSelected(false);
+                }
+            }
+            else if(textCheckBox.isSelected()) {
+                textCheckBox.setSelected(false);
+                flickTextEnable();
+            }
+            fileNameTF.setText(prop.getProperty("fileName"));
+            directoryTF.setText(prop.getProperty("directory"));
+            extensionDropDown.setSelectedItem(prop.getProperty("extension"));
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        drawPreview();
+    }
+
+    /* Creates a Templates folder under the program's install directory */
     private void createTemplateFolder(){
         File dir = new File(System.getProperty("user.dir") + "\\templates");
         dir.mkdir();
     }
-
 }
