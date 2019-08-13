@@ -14,7 +14,7 @@ This program was written as a birthday gift to my father, as he manually makes i
 Image-Generator was meant to automate that process.
 
 TO-DO:
-  - Make proper readme file, with small tutorial on how to use program.
+  - Make a proper readme file, with small tutorial on how to use the program.
   - Re-write program using JavaFX, as it is better at handling dynamic UI. Also because learning is fun.
   - Update documentation in code. Comments exist, but some were written quickly and thus lack some depth.
   
